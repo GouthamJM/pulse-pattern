@@ -1,15 +1,11 @@
 import { Inter } from "next/font/google";
 
-import Test from "@/components/Test";
+import PageLayoutHoc from "@/hocs/PageLayoutHoc";
+import HomePage from "@/ui_components/home/HomePage";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
-    return (
-        <main
-            className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-        >
-            <Test />
-        </main>
-    );
+{
+    /* <div className="app mobView"></div> */
 }
+export default PageLayoutHoc(HomePage);

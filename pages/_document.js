@@ -1,3 +1,4 @@
+import { Header } from "@/ui_components/shared";
 import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {

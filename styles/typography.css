@@ -1,0 +1,37 @@
+.heading1_extrabold {
+  @apply font-sans font-extrabold text-[42px] leading-[57px];
+}
+
+.heading2_extrabold {
+  @apply font-extrabold text-4xl;
+}
+.heading2_bold {
+  @apply font-bold text-2xl;
+}
+.heading2_regular {
+  @apply font-normal text-2xl leading-normal;
+}
+
+.paragraph_bold {
+  @apply font-bold text-base leading-normal;
+}
+
+.paragraph_medium {
+  @apply font-medium text-base leading-normal;
+}
+
+.paragraph_regular {
+  @apply font-normal text-grey text-base leading-normal;
+}
+
+.supportText_semibold {
+  @apply font-semibold text-xs leading-normal;
+}
+
+.supportText_medium {
+  @apply font-medium text-xs leading-normal;
+}
+
+.supportText_regular {
+  @apply font-normal text-xs leading-normal;
+}

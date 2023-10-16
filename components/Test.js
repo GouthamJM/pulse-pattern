@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-import { truncateText } from "@/utils";
-
 export default function Test() {
     return (
         <>
@@ -73,9 +71,7 @@ export default function Test() {
                         </span>
                     </h2>
                     <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                        {truncateText(
-                            "Learn about Next.js in an interactive course with&nbsp;quizzes!",
-                        )}
+                        "Learn about Next.js in an interactive course with&nbsp;quizzes!"
                     </p>
                 </a>
 
