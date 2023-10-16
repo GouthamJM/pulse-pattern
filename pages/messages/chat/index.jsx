@@ -1,3 +1,5 @@
+import PageLayoutHoc from "@/hocs/PageLayoutHoc";
+import withAuth from "@/hocs/withAuth";
 import {
     MessageBox,
     ChatBeginning,
@@ -17,4 +19,4 @@ const ChatList = () => {
         </div>
     );
 };
-export default ChatList;
+export default withAuth(PageLayoutHoc(ChatList));

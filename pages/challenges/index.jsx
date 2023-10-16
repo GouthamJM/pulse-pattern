@@ -1,4 +1,5 @@
 import PageLayoutHoc from "@/hocs/PageLayoutHoc";
+import withAuth from "@/hocs/withAuth";
 import {
     CreateChallenge,
     Invite,
@@ -30,4 +31,4 @@ function Challenges() {
     return <>{getChallengeSteps(challenges)}</>;
 }
 
-export default PageLayoutHoc(Challenges);
+export default withAuth(PageLayoutHoc(Challenges));

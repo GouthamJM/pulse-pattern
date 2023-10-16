@@ -1,6 +1,7 @@
 import PageLayoutHoc from "@/hocs/PageLayoutHoc";
 import { NavLink } from "@/ui_components/shared";
 import { InviteList } from "@/ui_components/messages";
+import withAuth from "@/hocs/withAuth";
 
 function Messages() {
     return (
@@ -18,4 +19,4 @@ function Messages() {
     );
 }
 
-export default PageLayoutHoc(Messages);
+export default withAuth(PageLayoutHoc(Messages));
