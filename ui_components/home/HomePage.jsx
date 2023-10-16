@@ -1,6 +1,5 @@
-import { useLocation } from "react-router-dom";
 import { Button } from "@/ui_components/shared";
-import { getFromLocalStorage, getNounAvatar } from "@/utils";
+import { getNounAvatar } from "@/utils";
 import { STRAVA_AUTH_URL } from "@/constants";
 import { useRouter } from "next/router";
 import { ICONS } from "@/utils/images";
