@@ -39,7 +39,8 @@
         "viem": "^1.12.2",
         "wagmi": "^1.4.3",
         "@safe-global/auth-kit": "^1.2.0",
-        "@safe-global/protocol-kit": "^1.2.0"
+        "@safe-global/protocol-kit": "^1.2.0",
+        "@sentry/react": "^7.64.0"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.12",

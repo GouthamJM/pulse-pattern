@@ -5,11 +5,15 @@ import { getFromLocalStorage, getTokenFormattedNumber } from "@/utils";
 import { getBalance, getUsdPrice } from "@/utils/apiservices";
 import { hexToNumber } from "viem";
 import { ICONS } from "@/utils/images";
+import { useWeb3Modal } from "@web3modal/react";
 import Image from "next/image";
+import {useAccount ,useSendTransaction, useWaitForTransaction, usePrepareSendTransaction} from "wagmi";
 
 const CreateChallenge = ({ handleUpdateStep }) => {
     const [inputValue, setInputValue] = useState("");
     const [bal, setBal] = useState("");
+    const { open } = useWeb3Modal();
+    const [tokenPrice, setTokenPrice] = useState("")
 
     const handleInputChange = (val) => {
         if (/^\d*\.?\d*$/.test(val) || val === "") {
@@ -38,6 +42,7 @@ const CreateChallenge = ({ handleUpdateStep }) => {
                     18,
                 );
                 setBal(formattedNumber);
+                setTokenPrice(res.data.ethereum.usd);
                 const formatBal = (
                     (hexToNumber(balance.result) / Math.pow(10, 18)) *
                     res.data.ethereum.usd
@@ -47,6 +52,53 @@ const CreateChallenge = ({ handleUpdateStep }) => {
                 console.log(e);
             });
     };
+
+
+  const [depositValue, setDepositValue] = useState("");
+  const [depositInputValue, setDepositInputValue] = useState("");
+  const [transactionLoading, setTransactionLoading] = useState(false);
+      const { address, isConnecting, isConnected } = useAccount();
+    const add = getFromLocalStorage("address");
+    const toAmount = Number(depositInputValue) * Math.pow(10, 18);
+    const {config} = usePrepareSendTransaction({
+        to: add,
+        value: Math.round(toAmount),
+    })
+    const { data, sendTransaction, status } = useSendTransaction(config);
+    const { isLoading, isSuccess, error } = useWaitForTransaction({
+        hash: data?.hash,
+    });
+
+  const handleDepositInputChange = (val) => {
+    const valueWithoutDollarSign = val.replace(/[^\d.]/g, "");
+    let appendDollar = "";
+    if (Number(valueWithoutDollarSign) > 0) {
+      appendDollar = "$";
+    }
+    setDepositValue(`${appendDollar}${valueWithoutDollarSign}`);
+    const tokenIputValue = Number(valueWithoutDollarSign) / Number(tokenPrice);
+    setDepositInputValue(tokenIputValue);
+  };
+
+    const handleDepositClick = async () => {
+    setTransactionLoading(true);
+    try {
+        const result =  sendTransaction();
+    } catch (e) {
+      setTransactionLoading(false);
+      console.log(e, "error");
+    }
+  };
+    
+    useEffect(() => {
+        if (!isLoading && isSuccess) {
+            setTransactionLoading(false);
+            fetchBalance();
+        } else if (error) {
+            setTransactionLoading(false);
+            console.log("error", error);
+        }
+    },[isSuccess, error, status])
 
     return (
         <section className="relative h-full">
@@ -65,6 +117,31 @@ const CreateChallenge = ({ handleUpdateStep }) => {
                             <Image src={ICONS.ethereum} className="mb-2" />
                             <p className="paragraph_regular mb-1">Your balance</p>
                             <p className="paragraph_bold text-black mb-1">{`${bal} ETH`}</p>
+                            <div className="mt-5">
+                            <InputField
+                                        inputMode="decimal"
+                                        type="text"
+                                        className={``}
+                                        onChange={(e) => {
+                                            handleDepositInputChange(e.target.value);
+                                    }}
+                                    placeholder={"$0"}
+                                        value={depositValue}
+                                        showClose={false}
+                                    />
+                                <Button
+                                    variant={"primary"}
+                                    label={transactionLoading || isLoading ? "Depositting..." : "Deposit"}
+                                    onClick={() => {
+                                        isConnected ? handleDepositClick() : open();
+                                    }}
+                                    className="w-full mt-3"
+                                >
+                                    <div className="flex items-center justify-center gap-2">
+                                        Deposit
+                                    </div>
+                                </Button>
+                            </div>
                         </div>
                         <div>
                             <div className="rounded-large bg-grey3 px-5 flex items-center mb-4">
