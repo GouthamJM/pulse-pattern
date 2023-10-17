@@ -9,8 +9,6 @@ export default function HomePage() {
     const router = useRouter();
     const navigate = router.push;
 
-    const stravaRedirectUrl = `${STRAVA_AUTH_URL}?client_id=114067&redirect_uri=http://localhost:5173/&response_type=code&approval_prompt=auto&scope=activity:read`;
-
     const proImg = getFromLocalStorage("address");
 
     return (
@@ -19,12 +17,14 @@ export default function HomePage() {
                 <div className="h-full w-full">
                     <div className="relative">
                         <Image src={ICONS.ProfileBg} />
-                        <Image
-                            className="rounded-full w-[86px] absolute -bottom-8 left-[-2px]"
-                            width={86}
-                            height={86}
-                            src={getNounAvatar(proImg)}
-                        />
+                        {proImg && (
+                            <Image
+                                className="rounded-full w-[86px] absolute -bottom-8 left-[-2px]"
+                                width={86}
+                                height={86}
+                                src={getNounAvatar(proImg)}
+                            />
+                        )}
                     </div>
                     <div className="mt-10 mb-11">
                         <p className="paragraph_regular text-black mb-7">Hey there!</p>
@@ -43,7 +43,7 @@ export default function HomePage() {
                             Create a challenge
                         </Button>
                     </div>
-                    <div className="pb-10">
+                    {/* <div className="pb-10">
                         <div className="p-5 border border-grey2 rounded-4xl">
                             <Image className="w-6 h-6 mb-2" src={ICONS.connectIcon} />
                             <p className="paragraph_regular text-black mb-[14px]">
@@ -73,7 +73,7 @@ export default function HomePage() {
                                 </a>
                             </Button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>

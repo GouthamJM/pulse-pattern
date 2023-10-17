@@ -52,7 +52,7 @@ function withAuth(Component) {
                     tickerName: "Ethereum",
                 };
 
-                const web3auth = new Web3AuthNoModal({
+                const _web3auth = new Web3AuthNoModal({
                     clientId: web3AuthClientId,
                     web3AuthNetwork: "testnet",
                     chainConfig: chainConfig,
@@ -80,14 +80,27 @@ function withAuth(Component) {
                     privateKeyProvider,
                 });
 
-                web3auth.configureAdapter(openloginAdapter);
-                setWeb3auth(web3auth);
-                await web3auth.init();
-                setProvider(web3auth.provider);
+                _web3auth.configureAdapter(openloginAdapter);
+                setWeb3auth(_web3auth);
+                await _web3auth.init();
+                setProvider(_web3auth.provider);
                 setLoader(false);
+
+                async function fetchLogin() {
+                    if (_web3auth.connected) {
+                        const acc = await getAccounts(_web3auth.provider);
+                        saveToLocalStorage("address", acc);
+                        saveToLocalStorage("isLoggedIn", true);
+                        setLoggedIn(true);
+                    }
+                }
+
+                await fetchLogin();
             }
 
-            initializeOpenLogin();
+            (async function () {
+                await initializeOpenLogin();
+            })();
         }, []);
 
         const signIn = async () => {
@@ -106,7 +119,7 @@ function withAuth(Component) {
                     },
                 );
                 setProvider(web3authProvider);
-                const acc = await getAccounts();
+                const acc = await getAccounts(web3authProvider);
                 saveToLocalStorage("address", acc);
                 saveToLocalStorage("isLoggedIn", true);
                 setLoggedIn(true);
@@ -116,14 +129,14 @@ function withAuth(Component) {
             }
         };
 
-        const getAccounts = async () => {
+        const getAccounts = async (_provider) => {
             setSignInLoader(true);
-            if (!provider) {
+            if (!_provider) {
                 setSignInLoader(false);
                 return;
             }
             try {
-                const contractAddress = await deploySafeContract();
+                const contractAddress = await deploySafeContract(_provider);
                 setSignInLoader(false);
                 return contractAddress;
             } catch (error) {
@@ -132,8 +145,9 @@ function withAuth(Component) {
             }
         };
 
-        const deploySafeContract = async () => {
-            const ethProvider = new ethers.providers.Web3Provider(provider);
+        const deploySafeContract = async (_provider) => {
+            let initProvider = _provider || provider;
+            const ethProvider = new ethers.providers.Web3Provider(initProvider);
             const signer = await ethProvider.getSigner();
             const ethAdapter = new EthersAdapter({
                 ethers,
@@ -149,33 +163,21 @@ function withAuth(Component) {
             );
             return safeSdkOwnerPredicted;
         };
-
-        useEffect(() => {
-            async function fetchLogin() {
-                if (!loader && web3auth.connected) {
-                    const acc = await getAccounts();
-                    saveToLocalStorage("address", acc);
-                    saveToLocalStorage("isLoggedIn", true);
-                    setLoggedIn(true);
-                }
-            }
-            fetchLogin();
-        }, [loader]);
-
         if (loader)
             return <div className="flex items-center justify-center">Loading...</div>;
-        if (!loggedIn) {
-            return (
-                <div className="app mobView">
-                    <Onboarding
-                        handleClick={handleClick}
-                        open={open}
-                        signInLoader={signInLoader}
-                    />
-                </div>
-            );
+        if (loggedIn) {
+            return <Component {...props} />;
         }
-        return <Component {...props} />;
+
+        return (
+            <div className="app mobView">
+                <Onboarding
+                    handleClick={handleClick}
+                    open={open}
+                    signInLoader={signInLoader}
+                />
+            </div>
+        );
     };
     return Auth;
 }
