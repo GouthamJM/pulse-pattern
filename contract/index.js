@@ -53,7 +53,6 @@ class PulsePatternContract {
 
     // private
     async getTransactionReceipt(hash) {
-        await this.publicClientInit();
         const transaction = await this.publicClient.waitForTransactionReceipt({ hash });
         return transaction;
     }
@@ -62,6 +61,7 @@ class PulsePatternContract {
     async initContractAndClient() {
         await this.walletClientInit();
         await this.initContract(this.walletClient);
+        await this.publicClientInit();
     }
 
     // public read
@@ -86,9 +86,15 @@ class PulsePatternContract {
     }
 
     // public read
-    async getUserChallenges(address) {
+    async getUserChallenges(address, index) {
         await this.initContractAndClient();
-        const result = await this.contract.read.userChallenges(address);
+        const result = await this.publicClient.readContract({
+            address: this.smartContractAddress,
+            abi: this.smartContractABI,
+            functionName: "userChallenges",
+            args: [address, index],
+        });
+
         return result;
     }
 
