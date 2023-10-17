@@ -1,8 +1,5 @@
 import { getNounData, getNounSeedFromBlockHash, ImageData } from "@nouns/assets";
 import { buildSVG } from "@nouns/sdk";
-export const getImage = (image) => {
-    return <Image src={`/assets/images/${image}`} alt="me" width="64" height="64" />;
-};
 
 export const getNounAvatar = (blockhash) => {
     const uniqueNumber = hashString(blockhash);
