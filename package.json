@@ -12,6 +12,8 @@
         "@ethersproject/address": "^5.7.0",
         "@nouns/assets": "^0.5.0",
         "@nouns/sdk": "^0.4.0",
+        "@safe-global/auth-kit": "^1.2.0",
+        "@safe-global/protocol-kit": "^1.2.0",
         "@walletconnect/chat-client": "^0.8.2",
         "@walletconnect/core": "2.10.1-665f0a23",
         "@walletconnect/identity-keys": "^0.2.0",
@@ -38,8 +40,6 @@
         "react-dom": "18.2.0",
         "viem": "^1.12.2",
         "wagmi": "^1.4.3",
-        "@safe-global/auth-kit": "^1.2.0",
-        "@safe-global/protocol-kit": "^1.2.0",
         "@sentry/react": "^7.64.0"
     },
     "devDependencies": {

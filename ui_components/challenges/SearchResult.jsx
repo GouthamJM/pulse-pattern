@@ -11,6 +11,8 @@ const SearchResult = ({ handleUpdateStep, name, address }) => {
                 <Image
                     className="rounded-full w-[74px] absolute -bottom-8 left-1/2 -translate-x-1/2"
                     src={getNounAvatar(address)}
+                    width={74}
+                    height={74}
                 />
             </div>
             <div className="text-center px-5 py-5">

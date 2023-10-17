@@ -73,6 +73,7 @@ const NewChat = () => {
             setIsExist(exist);
         });
     }, [searchValue]);
+
     const disabledReason = useMemo(() => {
         const truncatedQuery = trimAddress(searchValue, 5);
 
