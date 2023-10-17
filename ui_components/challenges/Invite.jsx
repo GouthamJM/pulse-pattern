@@ -4,6 +4,7 @@ import { BackBtn, InputField } from "../shared";
 import { SearchResult } from ".";
 import { debounce } from "lodash";
 import { getSearchResult } from "@/utils/apiservices";
+import { ICONS } from "@/utils/images";
 
 const Invite = ({ handleUpdateStep }) => {
     const [inputValue, setInputValue] = useState("");
@@ -13,8 +14,10 @@ const Invite = ({ handleUpdateStep }) => {
     const handleSearchValue = (val) => {
         setLoader(true);
         getSearchResult(val).then((res) => {
-            setSearchResult(res.data.data.items);
-            setLoader(false);
+            if (res?.data?.data?.items) {
+                setSearchResult(res.data.data.items);
+                setLoader(false);
+            }
         });
     };
 
@@ -48,7 +51,7 @@ const Invite = ({ handleUpdateStep }) => {
                     <InputField
                         placeholder="Search your friend"
                         isSearch
-                        searchIcon={ICONS.searchIcon}
+                        searchIcon={ICONS.SearchIcon}
                         onChange={(e) => handleChangeInput(e.target.value)}
                         value={inputValue}
                         OnClear={handleClearInput}
