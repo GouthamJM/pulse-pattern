@@ -1,0 +1,368 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "_challengeId",
+                "type": "uint32"
+            }
+        ],
+        "name": "addUserToChallenge",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "_challengeId",
+                "type": "uint32"
+            },
+            {
+                "internalType": "address[]",
+                "name": "_winners",
+                "type": "address[]"
+            }
+        ],
+        "name": "addWinners",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "_challengeId",
+                "type": "uint32"
+            }
+        ],
+        "name": "claimReward",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint32",
+                "name": "challengeId",
+                "type": "uint32"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amountToBeStaked",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "expiryDate",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "isPublicChallenge",
+                "type": "bool"
+            }
+        ],
+        "name": "ChallengeCreated",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "_challengeId",
+                "type": "uint32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_expiryDate",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_betAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_target",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address[]",
+                "name": "_participentsAddresses",
+                "type": "address[]"
+            },
+            {
+                "internalType": "bool",
+                "name": "_isPublicChallenge",
+                "type": "bool"
+            }
+        ],
+        "name": "createChallenge",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "_challengeId",
+                "type": "uint32"
+            }
+        ],
+        "name": "deleteChallenge",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint32",
+                "name": "challengeId",
+                "type": "uint32"
+            }
+        ],
+        "name": "DeleteChallenge",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint32",
+                "name": "challengeId",
+                "type": "uint32"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "name": "UserAddedToChallenge",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "challengeId",
+                "type": "uint256"
+            }
+        ],
+        "name": "WinnersAdded",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "",
+                "type": "uint32"
+            }
+        ],
+        "name": "activeChallenges",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "",
+                "type": "uint32"
+            }
+        ],
+        "name": "challenges",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "challengeCreatorAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint32",
+                "name": "challengeId",
+                "type": "uint32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amountToBeStaked",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "expiryDate",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "target",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint8",
+                "name": "totalParticipants",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint8",
+                "name": "totalAcceptedUsers",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint8",
+                "name": "totalWinners",
+                "type": "uint8"
+            },
+            {
+                "internalType": "bool",
+                "name": "isPublicChallenge",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "",
+                "type": "uint32"
+            }
+        ],
+        "name": "fundDisbursed",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "_challengeId",
+                "type": "uint32"
+            }
+        ],
+        "name": "listOfAcceptedUsers",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "",
+                "type": "uint32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "listOfUsersInChallenge",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "smartContractBalance",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint32",
+                "name": "",
+                "type": "uint32"
+            }
+        ],
+        "name": "winnerAmount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

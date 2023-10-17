@@ -1,11 +1,20 @@
 import { Header } from "@/ui_components/shared";
 
-export default function PageLayoutHoc(HocComponent) {
+export default function PageLayoutHoc(
+    HocComponent,
+    { showHeader } = { showHeader: true },
+) {
     function PageLayoutHoc(props) {
         return (
             <div className="app mobView">
-                <Header />
-                <HocComponent {...props} />
+                {showHeader && <Header />}
+                {showHeader ? (
+                    <div className="mt-[60px]">
+                        <HocComponent {...props} />
+                    </div>
+                ) : (
+                    <HocComponent {...props} />
+                )}
             </div>
         );
     }

@@ -13,7 +13,7 @@ module.exports = {
         },
         "import/resolver": {
             node: {
-                paths: ["src"],
+                paths: ["pages", "ui_components", "utils"],
                 extensions: [".js", ".jsx"],
             },
         },
