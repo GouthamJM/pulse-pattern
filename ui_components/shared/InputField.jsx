@@ -76,7 +76,7 @@ const InputField = (props) => {
                     />
                 ) : null}
                 {rightText ? (
-                    <p className="paragraph_regular absolute right-5 top-1/2 -translate-y-1/2">
+                    <p className="paragraph_regular absolute right-10 top-1/2 -translate-y-1/2">
                         {rightText}
                     </p>
                 ) : null}

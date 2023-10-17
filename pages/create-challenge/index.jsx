@@ -9,20 +9,46 @@ import {
 import { useState } from "react";
 
 function Challenges() {
-    const [challenges, setChallenges] = useState("invite");
+    const [challengeForm, setChallengeForm] = useState({
+        steps: "",
+        duration: "",
+        deposit: "",
+    });
+    const [challenges, setChallenges] = useState("newChallenge");
 
     const handleUpdateStep = (type) => {
         setChallenges(type);
     };
 
+    const handleUpdateForm = (newForm) => {
+        setChallengeForm((prev) => {
+            return { ...prev, ...newForm };
+        });
+    };
+
     const getChallengeSteps = (challenges) => {
         switch (challenges) {
             case "newChallenge":
-                return <NewChallenge handleUpdateStep={handleUpdateStep} />;
+                return (
+                    <NewChallenge
+                        handleUpdateStep={handleUpdateStep}
+                        handleUpdateForm={handleUpdateForm}
+                    />
+                );
             case "createChallenge":
-                return <CreateChallenge handleUpdateStep={handleUpdateStep} />;
+                return (
+                    <CreateChallenge
+                        handleUpdateStep={handleUpdateStep}
+                        handleUpdateForm={handleUpdateForm}
+                    />
+                );
             case "invite":
-                return <Invite handleUpdateStep={handleUpdateStep} />;
+                return (
+                    <Invite
+                        handleUpdateStep={handleUpdateStep}
+                        handleUpdateForm={handleUpdateForm}
+                    />
+                );
             case "status":
                 return <InviteStatus />;
         }

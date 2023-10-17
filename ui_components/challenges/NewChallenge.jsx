@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { BackBtn, Button, InputField, SlidingTab } from "../shared";
 import { challengeTabs } from "@/constants/index.js";
 import { ICONS } from "@/utils/images";
 import Image from "next/image";
 
-const NewChallenge = ({ handleUpdateStep }) => {
+const NewChallenge = ({ handleUpdateStep, handleUpdateForm }) => {
     const [activeTab, setActiveTab] = useState("steps");
 
     const handleTabClick = (id) => {
@@ -14,7 +14,12 @@ const NewChallenge = ({ handleUpdateStep }) => {
     };
 
     const [stepsValue, setStepsValue] = useState("");
+    const [duration, setDuration] = useState(0);
     const [error, setError] = useState("");
+
+    const buttonDisabled = useMemo(() => {
+        return !duration || !stepsValue;
+    }, [duration, stepsValue]);
 
     const handleInputChange = (val) => {
         if (/^\d*\.?\d*$/.test(val) || val === "") {
@@ -32,6 +37,14 @@ const NewChallenge = ({ handleUpdateStep }) => {
         } else {
             setError("Please enter a valid number");
         }
+    };
+
+    const updateStep = () => {
+        handleUpdateForm({
+            steps: stepsValue,
+            duration,
+        });
+        handleUpdateStep("createChallenge");
     };
 
     return (
@@ -77,7 +90,7 @@ const NewChallenge = ({ handleUpdateStep }) => {
                                 <div>
                                     <InputField
                                         inputMode="decimal"
-                                        type="text"
+                                        type="number"
                                         className={` ${
                                             error ? "mb-[10px]" : "mb-[30px]"
                                         }`}
@@ -88,16 +101,21 @@ const NewChallenge = ({ handleUpdateStep }) => {
                                             handleInputChange(e.target.value);
                                         }}
                                         showClose={false}
+                                        step={100}
                                     />
                                     {error && (
                                         <p className="text-red-500 mb-[30px]">{error}</p>
                                     )}
-                                    <div className="disabled">
+                                    <div>
                                         <InputField
-                                            value={1}
+                                            value={duration}
+                                            type="number"
                                             label={"Duration"}
                                             rightText="Days"
                                             showClose={false}
+                                            onChange={(e) => {
+                                                setDuration(e.target.value);
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -135,11 +153,16 @@ const NewChallenge = ({ handleUpdateStep }) => {
                     </div>
                 </div>
             </div>
-            <div className="fixed bottom-12 w-[380px] left-1/2 -translate-x-1/2 z-10">
+            <div
+                className={`fixed bottom-12 w-[380px] left-1/2 -translate-x-1/2 z-10 ${
+                    buttonDisabled ? "disabled" : ""
+                }`}
+            >
                 <Button
                     variant={"primary"}
-                    onClick={() => handleUpdateStep("createChallenge")}
+                    onClick={() => updateStep()}
                     className="w-full"
+                    disabled={buttonDisabled}
                 >
                     <div className="flex items-center justify-center gap-2">
                         Set goal

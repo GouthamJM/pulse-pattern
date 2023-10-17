@@ -38,7 +38,7 @@ export default function HomePage() {
                         </p>
                         <Button
                             variant={"primary"}
-                            onClick={() => navigate("challenges")}
+                            onClick={() => navigate("create-challenge")}
                         >
                             Create a challenge
                         </Button>
