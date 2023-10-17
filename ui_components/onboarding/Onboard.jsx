@@ -1,5 +1,5 @@
 import { Button } from "@/ui_components/shared";
-import { getImage, saveToLocalStorage } from "@/utils";
+import { saveToLocalStorage } from "@/utils";
 import { Web3AuthModalPack } from "@safe-global/auth-kit";
 import { web3AuthConfig, BaseGoerli } from "@/constants/baseGoerli";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
@@ -22,10 +22,10 @@ import { useRouter } from "next/router";
 import { ICONS } from "@/utils/images";
 import Image from "next/image";
 
-export default function Onboarding() {
+export default function Onboarding({handleClick, open, signInLoader}) {
     const router = useRouter();
-    const navigate = router.push;
-    const { open } = useWeb3Modal();
+    // const navigate = router.push;
+    // const { open } = useWeb3Modal();
     const { address, isConnecting, isConnected } = useAccount();
     const web3AuthModalPack = new Web3AuthModalPack(web3AuthConfig);
 
@@ -52,10 +52,10 @@ export default function Onboarding() {
         const safeSdkOwnerPredicted = await getSafes(web3AuthModalPack);
         saveToLocalStorage("address", safeSdkOwnerPredicted);
         saveToLocalStorage("isLoggedIn", true);
-        navigate({
-            pathname: "/",
-            search: location.search,
-        });
+        // navigate({
+        //     pathname: "/",
+        //     search: location.search,
+        // });
         setLoading(false);
         setLoggedIn(true);
     };
@@ -79,9 +79,9 @@ export default function Onboarding() {
         return safeSdkOwnerPredicted;
     };
 
-    const handleClick = () => {
-        signIn();
-    };
+    // const handleClick = () => {
+    //     signIn();
+    // };\
 
     useEffect(() => {
         async function initializeOpenLogin() {
@@ -147,10 +147,10 @@ export default function Onboarding() {
             const acc = await getAccounts();
             saveToLocalStorage("address", acc);
             saveToLocalStorage("isLoggedIn", true);
-            navigate({
-                pathname: "/",
-                search: location.search,
-            });
+            // navigate({
+            //     pathname: "/",
+            //     search: location.search,
+            // });
         } catch (e) {
             console.log(e, "e");
         }
@@ -190,10 +190,10 @@ export default function Onboarding() {
         if (isConnected && address) {
             saveToLocalStorage("address", address);
             saveToLocalStorage("isLoggedIn", true);
-            navigate({
-                pathname: "/",
-                search: location.search,
-            });
+            // navigate({
+            //     pathname: "/",
+            //     search: location.search,
+            // });
         }
     }, [isConnecting]);
 
@@ -219,7 +219,9 @@ export default function Onboarding() {
                             Challenge <br /> Track <br /> Conquer!
                         </h1>
                     </div>
-                    <div className="flex flex-col items-center gap-5 pb-5">
+                    {signInLoader ? <p className="paragraph_bold text-black text-center">
+                            Signing in...
+                        </p> : <div className="flex flex-col items-center gap-5 pb-5">
                         <Button
                             variant={"primary"}
                             label="Google signin"
@@ -234,7 +236,7 @@ export default function Onboarding() {
                                 open();
                             }}
                         />
-                    </div>
+                    </div>}
                 </div>
             </div>
         </section>

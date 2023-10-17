@@ -1,5 +1,8 @@
+"use client";
 import { Buffer } from "buffer";
 
 export const polyfill = () => {
-  window.Buffer = Buffer;
+    if (typeof window !== undefined) {
+        window.Buffer = Buffer;
+    }
 };

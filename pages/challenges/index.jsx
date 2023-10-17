@@ -31,4 +31,4 @@ function Challenges() {
     return <>{getChallengeSteps(challenges)}</>;
 }
 
-export default withAuth(PageLayoutHoc(Challenges));
+export default PageLayoutHoc(Challenges);

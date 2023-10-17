@@ -15,6 +15,7 @@ const Header = () => {
                     <Image className="w-8 h-8 cursor-pointer" src={ICONS.Notification} />
                     <Image
                         className="w-8 h-8 rounded-full cursor-pointer"
+                        width={32} height={32}
                         src={
                             typeof address === "undefined"
                                 ? ICONS.Profile

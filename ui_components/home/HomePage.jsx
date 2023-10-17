@@ -1,5 +1,5 @@
 import { Button } from "@/ui_components/shared";
-import { getNounAvatar } from "@/utils";
+import { getFromLocalStorage, getNounAvatar } from "@/utils";
 import { STRAVA_AUTH_URL } from "@/constants";
 import { useRouter } from "next/router";
 import { ICONS } from "@/utils/images";
@@ -11,7 +11,7 @@ export default function HomePage() {
 
     const stravaRedirectUrl = `${STRAVA_AUTH_URL}?client_id=114067&redirect_uri=http://localhost:5173/&response_type=code&approval_prompt=auto&scope=activity:read`;
 
-    const proImg = "0xdBd71c0b92caA92e37b2bCC43019f38947A2B0e6";
+    const proImg = getFromLocalStorage("address");
 
     return (
         <section className="mt-4 h-full bg-white overflow-y-auto hide-scrollbar">
@@ -19,8 +19,10 @@ export default function HomePage() {
                 <div className="h-full w-full">
                     <div className="relative">
                         <Image src={ICONS.ProfileBg} />
-                        <img
+                        <Image
                             className="rounded-full w-[86px] absolute -bottom-8 left-[-2px]"
+                            width={86}
+                            height={86}
                             src={getNounAvatar(proImg)}
                         />
                     </div>
@@ -36,7 +38,7 @@ export default function HomePage() {
                         </p>
                         <Button
                             variant={"primary"}
-                            onClick={() => navigate("create-challenge")}
+                            onClick={() => navigate("challenges")}
                         >
                             Create a challenge
                         </Button>

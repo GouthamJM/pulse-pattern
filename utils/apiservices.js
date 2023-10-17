@@ -54,9 +54,7 @@ export const getStravaAuth = (query) => {
 export const getUsdPrice = () => {
     const config = {
         method: "get",
-        url: `https://pro-api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&x_cg_pro_api_key=${
-            import.meta.env.VITE_COIN_GECKO_API_KEY
-        }`,
+        url: `https://pro-api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&x_cg_pro_api_key=${process.env.NEXT_PUBLIC_COIN_GECKO_API_KEY}`,
         headers: { "Content-Type": "application/json" },
     };
     return new Promise((resolve) => {
@@ -88,5 +86,15 @@ export const getSearchResult = (q) => {
             .catch((e) => {
                 console.log(e);
             });
+    });
+};
+
+export const getSendTransactionStatus = async (hash) => {
+    return new Promise(function (resolve, reject) {
+        globalApiService(ETHEREUM_REQUESTS.ethTransactionStatus, [hash])
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((e) => reject(e));
     });
 };

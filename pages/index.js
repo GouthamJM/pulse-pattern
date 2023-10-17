@@ -9,4 +9,4 @@ const inter = Inter({ subsets: ["latin"] });
 {
     /* <div className="app mobView"></div> */
 }
-export default withAuth(PageLayoutHoc(HomePage));
+export default withAuth(PageLayoutHoc(HomePage, { showHeader: true }));
