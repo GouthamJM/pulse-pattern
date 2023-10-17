@@ -4,7 +4,7 @@ import { polygonZkEvmTestnet } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 
 const POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT =
-    "0xD58e784F310A59ce9CF00F32298b39825094d8e7";
+    "0xB0cc48334ef1C07870a52460253b78cE2f46F0B8";
 
 class PulsePatternContract {
     constructor() {
@@ -82,6 +82,13 @@ class PulsePatternContract {
     async getOwner() {
         await this.initContractAndClient();
         const result = await this.contract.read.owner();
+        return result;
+    }
+
+    // public read
+    async getUserChallenges(address) {
+        await this.initContractAndClient();
+        const result = await this.contract.read.userChallenges(address);
         return result;
     }
 
