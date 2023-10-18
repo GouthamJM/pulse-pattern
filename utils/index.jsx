@@ -108,3 +108,7 @@ export const getTokenFormattedNumber = (
 export const hexToNumber = (val, divider = 1) => {
     return parseInt(val, 16) / divider;
 };
+
+export const copyToClipBoard = (val) => {
+    navigator.clipboard.writeText(`${val}`);
+};
