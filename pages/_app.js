@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { baseGoerli } from "wagmi/chains";
+import { baseGoerli, polygonZkEvmTestnet } from "wagmi/chains";
 import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum";
 import { Web3Modal } from "@web3modal/react";
 import { ToastContainer } from "react-toastify";
@@ -25,34 +25,7 @@ export default function App({ Component, pageProps }) {
     return (
         <>
             <WagmiConfig config={wagmiConfig}>
-                <PrivyProvider
-                    appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID}
-                    // onSuccess={handleLogin}
-                    config={{
-                        loginMethods: [
-                            "email",
-                            "wallet",
-                            "google",
-                            "sms",
-                            "twitter",
-                            "discord",
-                            "github",
-                            "linkedin",
-                            "tiktok",
-                            "apple",
-                        ],
-                        appearance: {
-                            theme: "light",
-                            accentColor: "#676FFF",
-                            logo: "https://blocktheory.com/_next/static/media/logo_black.3ea24a31.svg",
-                            showWalletLoginFirst: false,
-                        },
-                        embeddedWallets: {
-                            createOnLogin: "all-users",
-                            noPromptOnSignature: true,
-                        },
-                    }}
-                >
+                <PrivyProvider appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID}>
                     <Component {...pageProps} />{" "}
                 </PrivyProvider>
             </WagmiConfig>

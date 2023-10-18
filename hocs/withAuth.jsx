@@ -85,16 +85,14 @@ function withAuth(Component) {
             async function initPriv() {
                 if (ready) {
                     setLoader(false);
-                    setSignInLoader(true);
+                    // setSignInLoader(true);
                     if (ready && authenticated && user) {
                         const embeddedWallet = wallets.find((wallet) => (wallet.walletClientType === 'privy'));
-                        const ethProvider = embeddedWallet &&  await embeddedWallet.getEthereumProvider();
-                        getAccounts(ethProvider).then((res) => {
-                            saveToLocalStorage("address", res);
+                        // const ethProvider = embeddedWallet && await embeddedWallet.getEthereumProvider(); Provider variable
+                        saveToLocalStorage("address", embeddedWallet.address);
                             saveToLocalStorage("isLoggedIn", true);
                             setLoggedIn(true);
                             setSignInLoader(false);
-                        });
                     }
             }
             }
