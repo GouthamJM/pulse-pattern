@@ -1,6 +1,6 @@
 "use client";
 import Onboarding from "@/ui_components/onboarding/Onboard";
-import { saveToLocalStorage } from "@/utils";
+import { getFromLocalStorage, saveToLocalStorage } from "@/utils";
 import { Web3AuthModalPack } from "@safe-global/auth-kit";
 import { web3AuthConfig, BaseGoerli } from "@/constants/baseGoerli";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
@@ -41,6 +41,9 @@ function withAuth(Component) {
         };
 
         useEffect(() => {
+            if (!getFromLocalStorage("isLoggedIn")) {
+                saveToLocalStorage("redirectUrl", window.location.href);
+            }
             async function initializeOpenLogin() {
                 const chainConfig = {
                     chainNamespace: CHAIN_NAMESPACES.EIP155,
@@ -124,6 +127,11 @@ function withAuth(Component) {
                 saveToLocalStorage("isLoggedIn", true);
                 setLoggedIn(true);
                 setSignInLoader(false);
+                const redirectUrl = getFromLocalStorage("redirectUrl");
+                localStorage.removeItem("redirectUrl");
+                if (redirectUrl) {
+                    window.location.replace(redirectUrl);
+                }
             } catch (e) {
                 console.log(e, "e");
             }

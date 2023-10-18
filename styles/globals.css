@@ -62,7 +62,8 @@
 
 .mobView {
   width: 420px;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   margin: 0 auto;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

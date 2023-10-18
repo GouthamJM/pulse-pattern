@@ -73,7 +73,7 @@ export const getUsdPrice = () => {
 export const getSearchResult = (q) => {
     const config = {
         method: "get",
-        url: `https://api.blio.blocktheory.com/api/search?q=${q}`,
+        url: `https://api.web3.bio/profile/${q}`,
         headers: { "Content-Type": "application/json" },
     };
     return new Promise((resolve) => {

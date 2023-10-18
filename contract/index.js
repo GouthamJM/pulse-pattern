@@ -14,6 +14,10 @@ class PulsePatternContract {
         this.publicClient;
         this.smartContractAddress = POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT;
     }
+
+    async getWalletAddress() {
+        return process.env.NEXT_PUBLIC_EOA_PUBLIC_KEY;
+    }
     // private
     async publicClientInit() {
         if (!this.publicClient) {
@@ -99,7 +103,7 @@ class PulsePatternContract {
     }
 
     // public write
-    async unsignedCreateChallenge(
+    async createChallenge(
         _challengeId,
         _expiryDate,
         _betAmount,

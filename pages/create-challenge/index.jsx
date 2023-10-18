@@ -1,20 +1,28 @@
 import PageLayoutHoc from "@/hocs/PageLayoutHoc";
 import withAuth from "@/hocs/withAuth";
 import {
-    CreateChallenge,
+    ChallengeDepositForm,
     Invite,
     InviteStatus,
-    NewChallenge,
+    ChallengeStepForm,
 } from "@/ui_components/challenges";
 import { useState } from "react";
-
+export const CHALLENGE_COMP = {
+    stepAndDuration: "stepAndDuration",
+    stakeAndCreateChallenge: "stakeAndCreateChallenge",
+    inviteForChallenge: "inviteForChallenge",
+    invitationStatus: "invitationStatus",
+};
 function Challenges() {
     const [challengeForm, setChallengeForm] = useState({
         steps: "",
+        distance: "",
         duration: "",
         deposit: "",
     });
-    const [challenges, setChallenges] = useState("newChallenge");
+
+    const [challengeId, setChallengeId] = useState("");
+    const [challenges, setChallenges] = useState(CHALLENGE_COMP.stepAndDuration);
 
     const handleUpdateStep = (type) => {
         setChallenges(type);
@@ -28,28 +36,33 @@ function Challenges() {
 
     const getChallengeSteps = (challenges) => {
         switch (challenges) {
-            case "newChallenge":
+            case CHALLENGE_COMP.stepAndDuration:
                 return (
-                    <NewChallenge
+                    <ChallengeStepForm
+                        challengeForm={challengeForm}
                         handleUpdateStep={handleUpdateStep}
                         handleUpdateForm={handleUpdateForm}
                     />
                 );
-            case "createChallenge":
+            case CHALLENGE_COMP.stakeAndCreateChallenge:
                 return (
-                    <CreateChallenge
+                    <ChallengeDepositForm
+                        challengeForm={challengeForm}
                         handleUpdateStep={handleUpdateStep}
                         handleUpdateForm={handleUpdateForm}
+                        setChallengeId={setChallengeId}
                     />
                 );
-            case "invite":
+            case CHALLENGE_COMP.inviteForChallenge:
                 return (
                     <Invite
+                        challengeForm={challengeForm}
                         handleUpdateStep={handleUpdateStep}
                         handleUpdateForm={handleUpdateForm}
+                        challengeId={challengeId}
                     />
                 );
-            case "status":
+            case CHALLENGE_COMP.invitationStatus:
                 return <InviteStatus />;
         }
     };

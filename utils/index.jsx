@@ -43,7 +43,7 @@ function hashString(str) {
     return hash;
 }
 
-export const trimAddress = (val, charsToKeep) => {
+export const trimAddress = (val, charsToKeep = 8) => {
     if (!val) {
         return;
     }
