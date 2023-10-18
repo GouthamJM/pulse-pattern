@@ -43,7 +43,9 @@
         "react-dom": "18.2.0",
         "react-toastify": "^9.1.3",
         "viem": "^1.12.2",
-        "wagmi": "^1.4.3"
+        "wagmi": "^1.4.3",
+        "@sentry/react": "^7.64.0",
+        "@privy-io/react-auth": "^1.43.2"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.12",

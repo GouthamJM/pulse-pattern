@@ -186,16 +186,16 @@ export default function Onboarding({handleClick, open, signInLoader}) {
         return safeSdkOwnerPredicted;
     };
 
-    useEffect(() => {
-        if (isConnected && address) {
-            saveToLocalStorage("address", address);
-            saveToLocalStorage("isLoggedIn", true);
-            // navigate({
-            //     pathname: "/",
-            //     search: location.search,
-            // });
-        }
-    }, [isConnecting]);
+    // useEffect(() => {
+    //     if (isConnected && address) {
+    //         saveToLocalStorage("address", address);
+    //         saveToLocalStorage("isLoggedIn", true);
+    //         // navigate({
+    //         //     pathname: "/",
+    //         //     search: location.search,
+    //         // });
+    //     }
+    // }, [isConnecting]);
 
     return (
         <section className="h-full overflow-y-auto hide-scrollbar">

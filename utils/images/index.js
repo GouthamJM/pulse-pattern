@@ -19,6 +19,8 @@ import walkIcon from "@/public/assets/images/walk_icon.svg";
 import SearchResultBg from "@/public/assets/images/search_result_bg.png";
 import StepsPattern from "@/public/assets/images/steps_pattern.png";
 import copyGray from "@/public/assets/images/copy_gray.svg";
+import copyBlack from "@/public/assets/images/copy_black.svg";
+
 export const ICONS = {
     arrowBack,
     arrowDown,
@@ -41,4 +43,5 @@ export const ICONS = {
     SearchResultBg,
     StepsPattern,
     copyGray,
+    copyBlack,
 };
