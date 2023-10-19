@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const ChatHeader = () => {
     return (
-        <div className="flex items-center p-3 bg-white">
+        <div className="sticky top-[60px] flex items-center p-3 bg-white z-30">
             <div className="flex items-center gap-3">
                 <NavLink to="" goBack>
                     <Image className="rotate-90" src={ICONS.arrowDown} />
