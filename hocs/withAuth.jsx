@@ -37,7 +37,7 @@ function withAuth(Component) {
         const [provider, setProvider] = useState(null);
         const [signInLoader, setSignInLoader] = useState(false);
 
-  const { login, ready, authenticated, user } = usePrivy();
+        const { login, ready, authenticated, user } = usePrivy();
 
         // const getAccounts = async (_provider) => {
         //     setSignInLoader(true);
@@ -74,7 +74,7 @@ function withAuth(Component) {
         //     return safeSdkOwnerPredicted;
         // };
 
-        const {wallets} = useWallets();
+        const { wallets } = useWallets();
 
         const handleClick = () => {
             setSignInLoader(true);
@@ -85,16 +85,19 @@ function withAuth(Component) {
             async function initPriv() {
                 if (ready) {
                     setLoader(false);
+                    saveToLocalStorage(window.location.pathname, "pathname");
                     // setSignInLoader(true);
                     if (ready && authenticated && user) {
-                        const embeddedWallet = wallets.find((wallet) => (wallet.walletClientType === 'privy'));
+                        const embeddedWallet = wallets.find(
+                            (wallet) => wallet.walletClientType === "privy",
+                        );
                         // const ethProvider = embeddedWallet && await embeddedWallet.getEthereumProvider(); Provider variable
-                        saveToLocalStorage("address", embeddedWallet.address);
-                            saveToLocalStorage("isLoggedIn", true);
-                            setLoggedIn(true);
-                            setSignInLoader(false);
+                        saveToLocalStorage("address", embeddedWallet?.address);
+                        saveToLocalStorage("isLoggedIn", true);
+                        setLoggedIn(true);
+                        setSignInLoader(false);
                     }
-            }
+                }
             }
 
             (async function () {
@@ -112,12 +115,11 @@ function withAuth(Component) {
                         open={open}
                         signInLoader={signInLoader}
                     />
-                    </div>
+                </div>
             );
         }
 
         return <Component {...props} />;
-        
     };
     return Auth;
 }
