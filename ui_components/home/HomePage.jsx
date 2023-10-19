@@ -20,7 +20,6 @@ import {
     useWaitForTransaction,
     usePrepareSendTransaction,
 } from "wagmi";
-import UserChallenges from "./UserChallenges";
 
 export default function HomePage() {
     const router = useRouter();
@@ -231,7 +230,6 @@ export default function HomePage() {
                         </div>
                     </div> */}
                 </div>
-                <UserChallenges />
             </div>
         </section>
     );
