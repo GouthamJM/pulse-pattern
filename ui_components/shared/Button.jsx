@@ -17,7 +17,9 @@ const Button = ({
                 variant === "primary" ? "bg-black text-grey3" : ""
             } ${
                 variant === "ghost" ? "bg-transparent text-black border border-black" : ""
-            } ${className ? className : ""}`}
+            } ${variant === "secondary" ? "bg-green text-black" : ""}  ${
+                className ? className : ""
+            }`}
             disabled={disabled}
             onClick={onClick}
             {...props}

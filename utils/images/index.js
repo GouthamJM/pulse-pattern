@@ -20,6 +20,8 @@ import SearchResultBg from "@/public/assets/images/search_result_bg.png";
 import StepsPattern from "@/public/assets/images/steps_pattern.png";
 import copyGray from "@/public/assets/images/copy_gray.svg";
 import copyBlack from "@/public/assets/images/copy_black.svg";
+import logoWhite from "@/public/assets/images/logo_white.svg";
+import onboardingBg from "@/public/assets/images/onboarding_bg.png";
 
 export const ICONS = {
     arrowBack,
@@ -44,4 +46,6 @@ export const ICONS = {
     StepsPattern,
     copyGray,
     copyBlack,
+    logoWhite,
+    onboardingBg,
 };

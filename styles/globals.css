@@ -61,27 +61,27 @@
 }
 
 .mobView {
-  width: 420px;
+  width: 100vw;
   min-height: 100vh;
   height: 100%;
   margin: 0 auto;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
-  }
-  .override-disabled {
-      pointer-events: none;
-      opacity: 0.5;
-  }
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.override-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
 
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .hide-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-  }
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
 @layer components {
 }
@@ -117,4 +117,7 @@
   to {
     transform: rotate(1turn);
   }
+}
+.onboardingOverlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 56.77%);
 }

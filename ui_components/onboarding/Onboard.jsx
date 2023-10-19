@@ -22,7 +22,7 @@ import { useRouter } from "next/router";
 import { ICONS } from "@/utils/images";
 import Image from "next/image";
 
-export default function Onboarding({handleClick, open, signInLoader}) {
+export default function Onboarding({ handleClick, open, signInLoader }) {
     const router = useRouter();
     // const navigate = router.push;
     // const { open } = useWeb3Modal();
@@ -198,46 +198,66 @@ export default function Onboarding({handleClick, open, signInLoader}) {
     // }, [isConnecting]);
 
     return (
-        <section className="h-full overflow-y-auto hide-scrollbar">
-            <div className="container mx-auto h-full py-10">
+        <section className="h-[100dvh] overflow-clip hide-scrollbar bg-black relative">
+            <div className="container mx-auto h-full">
+                <Image
+                    className="w-[30vw] cursor-pointer relative z-10 pt-8"
+                    src={ICONS.logoWhite}
+                />
                 <div className="h-full w-full">
-                    <div className="relative text-center mt-10 mb-[20vh]">
-                        <Image
-                            className="w-[30vw] cursor-pointer relative z-10 mx-auto"
-                            src={ICONS.Logo}
-                        />
-                        <Image
-                            className="w-[20vw] absolute -top-[4vh] left-1/2 -translate-x-1/2"
-                            src={ICONS.LogoPattern}
-                        />
-                    </div>
-                    <div className="text-center mb-[20vh] relative z-20">
-                        <p className="paragraph_bold text-black">
-                            Level Up Your Fitness!
-                        </p>
-                        <h1 className="heading1_extrabold uppercase text-green italic">
+                    <div className="mt-8 relative z-20">
+                        <h1 className="heading1_extrabold uppercase text-grey4 italic">
                             Challenge <br /> Track <br /> Conquer!
                         </h1>
                     </div>
-                    {signInLoader ? <p className="paragraph_bold text-black text-center">
+                    {signInLoader ? (
+                        <p className="paragraph_bold text-black text-center">
                             Signing in...
-                        </p> : <div className="flex flex-col items-center gap-5 pb-5">
-                        <Button
-                            variant={"primary"}
-                            label="Google signin"
-                            onClick={() => {
-                                handleClick();
-                            }}
-                        />
-                        <Button
-                            variant={"primary"}
-                            label="WalletConnect Signin"
-                            onClick={() => {
-                                open();
-                            }}
-                        />
-                    </div>}
+                        </p>
+                    ) : (
+                        <div className="flex flex-col items-center gap-5 pb-5">
+                            <Button
+                                variant={"primary"}
+                                label="Google signin"
+                                onClick={() => {
+                                    handleClick();
+                                }}
+                            />
+                            <Button
+                                variant={"primary"}
+                                label="WalletConnect Signin"
+                                onClick={() => {
+                                    open();
+                                }}
+                            />
+                        </div>
+                    )}
                 </div>
+            </div>
+            <Image
+                className="absolute bottom-0 h-[100dvh] object-cover"
+                src={ICONS.onboardingBg}
+                alt="bg"
+            />
+            <div className="absolute bottom-0 w-full left-0 h-[22vh] onboardingOverlay"></div>
+            <div className="absolute bottom-11 left-1/2 -translate-x-1/2 w-[calc(100vw-40px)]">
+                <p className="paragraph_regular text-grey2 mb-4 text-center">
+                    Get started now
+                </p>
+                {signInLoader ? (
+                    <p className="paragraph_regular text-grey2 mb-4 text-center">
+                        Signing in...
+                    </p>
+                ) : (
+                    <Button
+                        className={"w-full font-bold"}
+                        variant={"secondary"}
+                        label="Connect Lens account"
+                        onClick={() => {
+                            handleClick();
+                        }}
+                    />
+                )}
             </div>
         </section>
     );
