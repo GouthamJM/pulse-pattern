@@ -8,9 +8,10 @@ import { ICONS } from "@/utils/images";
 import Image from "next/image";
 import { customAlphabet } from "nanoid";
 import { CHALLENGE_COMP } from "@/pages/create-challenge";
-import { pulsePatternContractService } from "@/contract";
+import { customPulsePatternContract, pulsePatternContractService } from "@/contract";
 import dayjs from "dayjs";
 import Spinner from "../shared/Spinner";
+import usePrivyClient from "@/utils/hooks/wallet/usePrivyClient";
 
 const nanoid = customAlphabet("1234567890", 9);
 const ChallengeDepositForm = ({
@@ -19,6 +20,7 @@ const ChallengeDepositForm = ({
     handleUpdateForm,
     setChallengeId,
 }) => {
+    const { privyClient } = usePrivyClient();
     const [bal, setBal] = useState("");
     const [tokenPrice, setTokenPrice] = useState("");
     const [loader, setLoader] = useState(false);
@@ -67,24 +69,15 @@ const ChallengeDepositForm = ({
                 false,
             ];
             setChallengeId(_challengeId);
-            console.log(
-                {
-                    _challengeId,
-                    _expiryDate,
-                    _betAmount,
-                    _target,
-                    _isPublicChallenge,
-                },
-                "contract account",
-            );
-            const challengeStatus = await pulsePatternContractService.createChallenge(
+            const challengeStatus = await customPulsePatternContract(
+                privyClient,
+            ).createChallenge(
                 _challengeId,
                 _expiryDate,
                 _betAmount,
                 _target,
                 _isPublicChallenge,
             );
-            console.log(challengeStatus, "challengeStatus");
             setLoader(false);
             handleUpdateStep(CHALLENGE_COMP.inviteForChallenge);
         } else {

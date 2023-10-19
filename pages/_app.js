@@ -29,6 +29,11 @@ export default function App({ Component, pageProps }) {
                     appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID}
                     config={{
                         supportedChains: [scrollSepolia],
+                        loginMethods: ["email", "google", "twitter", "github", "apple"],
+                        embeddedWallets: {
+                            createOnLogin: "all-users",
+                            noPromptOnSignature: true,
+                        },
                     }}
                 >
                     <Component {...pageProps} />{" "}

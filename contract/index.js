@@ -25,10 +25,10 @@ const POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT =
     "0x16e934c9f67404dEA6dd98A04F8e05369C3F6fa6";
 
 class PulsePatternContract {
-    constructor() {
+    constructor(walletClient) {
         this.smartContractABI = PULSE_PATTERN_CONTRACT;
         this.contract;
-        this.walletClient;
+        this.walletClient = walletClient;
         this.publicClient;
         this.smartContractAddress = POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT;
     }
@@ -144,7 +144,6 @@ class PulsePatternContract {
     async getChallenge(_challengeId) {
         await this.initContractAndClient();
         if (cache.get(_challengeId)) {
-            console.log("got from cache");
             return cache.get("_challengeId");
         } else {
             const result = await this.publicClient.readContract({
@@ -225,4 +224,7 @@ class PulsePatternContract {
     }
 }
 const pulsePatternContractService = new PulsePatternContract();
-export { pulsePatternContractService };
+const customPulsePatternContract = (client) => {
+    return new PulsePatternContract(client);
+};
+export { pulsePatternContractService, customPulsePatternContract };

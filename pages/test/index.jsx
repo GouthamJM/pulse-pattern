@@ -27,8 +27,6 @@ function Test() {
             "0x4B61566dED1D748245961B8E52714e57c8B138Bf",
             0,
         );
-
-        console.log(userTransactions, "userTransactions");
     };
     return (
         <div>

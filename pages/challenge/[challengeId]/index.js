@@ -6,6 +6,5 @@ export default function ChallengeDetail() {
     const params = useParams();
 
     const { challenge } = userChallengeDetail(params.challengeId);
-    console.log(challenge, "challenge");
     return <></>;
 }

@@ -17,7 +17,6 @@ export default function userChallenges() {
                 ?.filter((res) => res.status === "fulfilled")
                 ?.map((res) => res.value);
 
-            console.log(allChallengesResult, "allChallengesResult");
             setAllChallenges(allChallengesResult);
         })();
     }, []);

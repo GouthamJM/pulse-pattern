@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, InputField } from "@/ui_components/shared";
 import {
-    getFromLocalStorage,
     getTokenFormattedNumber,
     getNounAvatar,
     trimAddress,
@@ -15,26 +14,28 @@ import { ICONS } from "@/utils/images";
 import { useWeb3Modal } from "@web3modal/react";
 import Image from "next/image";
 import {
-    useAccount,
     useSendTransaction,
     useWaitForTransaction,
     usePrepareSendTransaction,
 } from "wagmi";
+import usePrivyWalletDetail from "@/utils/hooks/wallet/usePrivyWalletDetail";
+import { useW3iAccount } from "@web3inbox/widget-react";
 
 export default function HomePage() {
+    const { walletDetail } = usePrivyWalletDetail();
+    const { isConnected } = useW3iAccount();
     const router = useRouter();
+    const privyAddress = walletDetail?.address;
+    const { open } = useWeb3Modal();
     const navigate = router.push;
     const [bal, setBal] = useState("");
-    const { open } = useWeb3Modal();
     const [tokenPrice, setTokenPrice] = useState("");
     const [depositValue, setDepositValue] = useState("");
     const [depositInputValue, setDepositInputValue] = useState("");
     const [transactionLoading, setTransactionLoading] = useState(false);
-    const { address, isConnecting, isConnected } = useAccount();
-    const add = getFromLocalStorage("address");
     const toAmount = Number(depositInputValue) * Math.pow(10, 18);
     const { config } = usePrepareSendTransaction({
-        to: add,
+        to: privyAddress,
         value: Math.round(toAmount),
     });
     const { data, sendTransaction, status } = useSendTransaction(config);
@@ -46,14 +47,13 @@ export default function HomePage() {
     const [usdValue, setUsdValue] = useState("");
     const [showcopyText, setShowCopyText] = useState(false);
 
-    const proImg = getFromLocalStorage("address");
-
     useEffect(() => {
-        fetchBalance();
-    }, [add]);
+        if (privyAddress) {
+            fetchBalance(privyAddress);
+        }
+    }, [privyAddress]);
 
-    const fetchBalance = async () => {
-        const address = getFromLocalStorage("address");
+    const fetchBalance = async (address) => {
         getUsdPrice()
             .then(async (res) => {
                 const balance = await getBalance(address);
@@ -98,7 +98,7 @@ export default function HomePage() {
     };
 
     const handleCopy = () => {
-        copyToClipBoard(add);
+        copyToClipBoard(privyAddress);
         setShowCopyText(true);
         setTimeout(() => {
             setShowCopyText(false);
@@ -121,12 +121,12 @@ export default function HomePage() {
                 <div className="h-full w-full">
                     <div className="relative">
                         <Image src={ICONS.ProfileBg} />
-                        {proImg && (
+                        {privyAddress && (
                             <Image
                                 className="rounded-full w-[86px] absolute -bottom-8 left-[-2px]"
                                 width={86}
                                 height={86}
-                                src={getNounAvatar(proImg)}
+                                src={getNounAvatar(privyAddress)}
                             />
                         )}
                     </div>
@@ -154,7 +154,7 @@ export default function HomePage() {
                         <div className="flex items-center gap-2 mb-1">
                             <p className="paragraph_regular">Your balance</p>
                             <p className="paragraph_bold text-black">
-                                {trimAddress(add, 4)}
+                                {trimAddress(privyAddress, 4)}
                             </p>
                             {showcopyText ? (
                                 <p className="paragraph_bold text-black">{"Copied!"}</p>
@@ -193,7 +193,7 @@ export default function HomePage() {
                                 className="w-full mt-3"
                             >
                                 <div className="flex items-center justify-center gap-2">
-                                    Deposit
+                                    Deposit via Wallet Connect
                                 </div>
                             </Button>
                         </div>
