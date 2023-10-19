@@ -39,6 +39,7 @@
         "framer-motion": "^7.6.15",
         "fs": "0.0.1-security",
         "lodash": "^4.17.21",
+        "lru-cache": "^10.0.1",
         "nanoid": "^5.0.2",
         "next": "13.4.11",
         "pino": "^8.16.0",

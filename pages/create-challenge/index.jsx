@@ -7,6 +7,7 @@ import {
     ChallengeStepForm,
 } from "@/ui_components/challenges";
 import { useState } from "react";
+
 export const CHALLENGE_COMP = {
     stepAndDuration: "stepAndDuration",
     stakeAndCreateChallenge: "stakeAndCreateChallenge",

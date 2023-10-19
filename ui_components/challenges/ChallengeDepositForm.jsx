@@ -58,14 +58,7 @@ const ChallengeDepositForm = ({
     const handleCreateChallenge = async () => {
         setLoader(true);
         if (challengeForm) {
-            const [
-                _challengeId,
-                _expiryDate,
-                _betAmount,
-                _target,
-                _participentsAddresses,
-                _isPublicChallenge,
-            ] = [
+            const [_challengeId, _expiryDate, _betAmount, _target, _isPublicChallenge] = [
                 Number(nanoid()),
                 getNextDateUnix(challengeForm.duration),
                 parseEther(challengeForm.deposit),
@@ -80,20 +73,18 @@ const ChallengeDepositForm = ({
                     _expiryDate,
                     _betAmount,
                     _target,
-                    _participentsAddresses,
                     _isPublicChallenge,
                 },
                 "contract account",
             );
-            // const challengeStatus = await pulsePatternContractService.createChallenge(
-            //     _challengeId,
-            //     _expiryDate,
-            //     _betAmount,
-            //     _target,
-            //     _participentsAddresses,
-            //     _isPublicChallenge,
-            // );
-            // console.log(challengeStatus, "challengeStatus");
+            const challengeStatus = await pulsePatternContractService.createChallenge(
+                _challengeId,
+                _expiryDate,
+                _betAmount,
+                _target,
+                _isPublicChallenge,
+            );
+            console.log(challengeStatus, "challengeStatus");
             setLoader(false);
             handleUpdateStep(CHALLENGE_COMP.inviteForChallenge);
         } else {

@@ -1,7 +1,25 @@
 import PULSE_PATTERN_CONTRACT from "./abi/pulsePattern.json";
-import { createWalletClient, http, getContract, createPublicClient } from "viem";
+import {
+    createWalletClient,
+    http,
+    getContract,
+    createPublicClient,
+    formatEther,
+} from "viem";
 import { polygonZkEvmTestnet } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
+import { LRUCache } from "lru-cache";
+import dayjs from "dayjs";
+
+const cache = new LRUCache({
+    ttl: 1000 * 60 * 5,
+    max: 500,
+    maxSize: 5000,
+    allowStale: true,
+    sizeCalculation: (value, key) => {
+        return 1;
+    },
+});
 
 const POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT =
     "0x16e934c9f67404dEA6dd98A04F8e05369C3F6fa6";
@@ -90,13 +108,13 @@ class PulsePatternContract {
     }
 
     // public read
-    async getUserChallenges(address, index) {
+    async getUserChallenges(address) {
         await this.initContractAndClient();
         const result = await this.publicClient.readContract({
             address: this.smartContractAddress,
             abi: this.smartContractABI,
-            functionName: "userChallenges",
-            args: [address, index],
+            functionName: "fetchUserChallenges",
+            args: [address],
         });
 
         return result;
@@ -108,7 +126,6 @@ class PulsePatternContract {
         _expiryDate,
         _betAmount,
         _target,
-        _participentsAddresses,
         _isPublicChallenge,
     ) {
         await this.initContractAndClient();
@@ -117,18 +134,52 @@ class PulsePatternContract {
             address: this.smartContractAddress,
             abi: this.smartContractABI,
             functionName: "createChallenge",
-            args: [
-                _challengeId,
-                _expiryDate,
-                _betAmount,
-                _target,
-                _participentsAddresses,
-                _isPublicChallenge,
-            ],
+            args: [_challengeId, _expiryDate, _betAmount, _target, _isPublicChallenge],
             value: _betAmount,
         });
 
         return await this.getTransactionReceipt(res);
+    }
+
+    async getChallenge(_challengeId) {
+        await this.initContractAndClient();
+        if (cache.get(_challengeId)) {
+            console.log("got from cache");
+            return cache.get("_challengeId");
+        } else {
+            const result = await this.publicClient.readContract({
+                address: this.smartContractAddress,
+                abi: this.smartContractABI,
+                functionName: "challenges",
+                args: [_challengeId],
+            });
+            if (Array.isArray(result)) {
+            }
+            const [
+                challengeCreatorAddress,
+                challengeId,
+                amountToBeStaked,
+                expiryDate,
+                target,
+                totalAcceptedUsers,
+                totalWinners,
+                isPublicChallenge,
+                isActive,
+            ] = result;
+            const formattedResult = {
+                challengeCreatorAddress,
+                challengeId,
+                amountToBeStaked: formatEther(amountToBeStaked),
+                expiryDate: dayjs.unix(Number(expiryDate)).format(),
+                target: Number(target),
+                totalAcceptedUsers,
+                totalWinners,
+                isPublicChallenge,
+                isActive,
+            };
+            cache.set(_challengeId, formattedResult);
+            return formattedResult;
+        }
     }
 
     // public write
