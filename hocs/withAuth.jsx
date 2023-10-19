@@ -21,6 +21,9 @@ import { useWeb3Modal } from "@web3modal/react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import { useWallets, usePrivy } from "@privy-io/react-auth";
+import { createWalletClient } from "viem";
+import { scrollSepolia } from "viem/chains";
+import { custom } from "viem";
 
 function withAuth(Component) {
     const Auth = (props) => {
@@ -91,7 +94,14 @@ function withAuth(Component) {
                         const embeddedWallet = wallets.find(
                             (wallet) => wallet.walletClientType === "privy",
                         );
-                        // const ethProvider = embeddedWallet && await embeddedWallet.getEthereumProvider(); Provider variable
+                        const ethProvider = embeddedWallet && await embeddedWallet.getEthereumProvider();
+                        const client = createWalletClient({
+                            account: embeddedWallet.address,
+                            chain: scrollSepolia,
+                            transport: custom(ethProvider)
+                        });
+                        
+                        console.log(ethProvider, "eth provider");
                         saveToLocalStorage("address", embeddedWallet?.address);
                         saveToLocalStorage("isLoggedIn", true);
                         setLoggedIn(true);

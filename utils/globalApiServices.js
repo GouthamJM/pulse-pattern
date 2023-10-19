@@ -19,7 +19,7 @@ export const globalApiService = (method, params) => {
         body,
     };
 
-    const jsonRpcUrl = BaseGoerli.info.url;
+    const jsonRpcUrl = "https://1rpc.io/scroll/sepolia";
 
     return fetch(jsonRpcUrl, requestOptions)
         .then((response) => response.json())
