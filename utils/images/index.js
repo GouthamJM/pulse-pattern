@@ -8,6 +8,7 @@ import ethereum from "@/public/assets/images/ethereum.svg";
 import handEmoji from "@/public/assets/images/hand_emoji.svg";
 import helpCircle from "@/public/assets/images/help_circle.svg";
 import Icon from "@/public/assets/images/icon.svg";
+import walkPattern from "@/public/assets/images/walk_pattern.svg";
 import LogoPattern from "@/public/assets/images/logo_pattern.svg";
 import Logo from "@/public/assets/images/logo.svg";
 import Notification from "@/public/assets/images/notification.svg";
@@ -16,12 +17,15 @@ import Profile from "@/public/assets/images/profile.png";
 import SearchIcon from "@/public/assets/images/search_icon.svg";
 import SearchIconNoState from "@/public/assets/images/search_nostate.svg";
 import walkIcon from "@/public/assets/images/walk_icon.svg";
+import walkIconGreen from "@/public/assets/images/walk_icon_green.svg";
 import SearchResultBg from "@/public/assets/images/search_result_bg.png";
 import StepsPattern from "@/public/assets/images/steps_pattern.png";
 import copyGray from "@/public/assets/images/copy_gray.svg";
 import copyBlack from "@/public/assets/images/copy_black.svg";
 import logoWhite from "@/public/assets/images/logo_white.svg";
 import onboardingBg from "@/public/assets/images/onboarding_bg.png";
+import dummyProfile from "@/public/assets/images/dummy_profile.png";
+import trophy from "@/public/assets/images/trophy.svg";
 
 export const ICONS = {
     arrowBack,
@@ -48,4 +52,8 @@ export const ICONS = {
     copyBlack,
     logoWhite,
     onboardingBg,
+    dummyProfile,
+    walkIconGreen,
+    walkPattern,
+    trophy,
 };

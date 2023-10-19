@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { useWeb3Modal } from "@web3modal/react";
 import { useWallets, usePrivy } from "@privy-io/react-auth";
+import { Challenge } from "@/ui_components/challenges";
 
 function withAuth(Component) {
     const Auth = (props) => {

@@ -6,5 +6,16 @@ import NavLink from "./NavLink";
 import Modal from "./Modal";
 import BackBtn from "./BackBtn";
 import SlidingTab from "./SlidingTab";
+import Spacer from "./Spacer";
 
-export { Header, Button, Footer, InputField, NavLink, Modal, BackBtn, SlidingTab };
+export {
+    Header,
+    Button,
+    Footer,
+    InputField,
+    NavLink,
+    Modal,
+    BackBtn,
+    SlidingTab,
+    Spacer,
+};
