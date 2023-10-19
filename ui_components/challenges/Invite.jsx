@@ -12,7 +12,7 @@ import { useCopyToClipboard } from "@/utils/hooks/useCopyToClipboard";
 // https://api.web3.bio/profile/
 const Invite = ({ handleUpdateStep, challengeId }) => {
     const [, copy] = useCopyToClipboard();
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState("gouthamjm.eth");
     const [loader, setLoader] = useState(false);
     const [searchResult, setSearchResult] = useState();
     const [baseUrl, setBaseUrl] = useState();
@@ -93,11 +93,13 @@ const Invite = ({ handleUpdateStep, challengeId }) => {
                         value={inputValue}
                         OnClear={handleClearInput}
                     />
-
+                    <p className="supportText_regular text-grey p-2">
+                        API powered by web3 bio of Mask Network{" "}
+                    </p>
                     {searchResult && searchResult.length > 0 && !loader && (
                         <div>
                             <p className="paragraph_regular mb-2 mt-6">
-                                {`Found ${searchResult.length} matching result`}
+                                {`Found ${searchResult.length} matching result from users web3 bio`}
                             </p>
                             {searchResult.map((item, ind) => {
                                 return (

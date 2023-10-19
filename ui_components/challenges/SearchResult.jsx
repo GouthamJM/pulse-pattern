@@ -5,9 +5,23 @@ import Image from "next/image";
 import { useCopyToClipboard } from "@/utils/hooks/useCopyToClipboard";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import {
+    xmtpMessagingService,
+    customXMTPMessagingService,
+} from "@/contract/xmtpProtocol";
 
 const SearchResult = ({ handleUpdateStep, avatar, address, displayName }) => {
     const [, copy] = useCopyToClipboard();
+
+    const handleInviteUser = async () => {
+        try {
+            const res = await xmtpMessagingService.sendXMTPMessage(address);
+            // handleUpdateStep("status");
+            console.log(res, "first user message");
+        } catch (err) {
+            console.log("xmpt error", err);
+        }
+    };
 
     return (
         <div className="bg-white border border-grey2 rounded-4xl relative mb-5">
@@ -34,8 +48,8 @@ const SearchResult = ({ handleUpdateStep, avatar, address, displayName }) => {
 
                 <Button
                     variant={"primary"}
-                    label="Invite for challenge"
-                    onClick={() => handleUpdateStep("status")}
+                    label="Invite by Push protocol"
+                    onClick={() => handleInviteUser()}
                 />
             </div>
         </div>
