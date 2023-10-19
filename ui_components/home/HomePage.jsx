@@ -1,30 +1,42 @@
-import { useRouter } from "next/router";import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Button, InputField } from "@/ui_components/shared";
-import { getFromLocalStorage, getTokenFormattedNumber, getNounAvatar, trimAddress, copyToClipBoard } from "@/utils";
+import {
+    getFromLocalStorage,
+    getTokenFormattedNumber,
+    getNounAvatar,
+    trimAddress,
+    copyToClipBoard,
+} from "@/utils";
 
 import { getBalance, getUsdPrice } from "@/utils/apiservices";
 import { hexToNumber } from "viem";
 import { ICONS } from "@/utils/images";
 import { useWeb3Modal } from "@web3modal/react";
 import Image from "next/image";
-import {useAccount ,useSendTransaction, useWaitForTransaction, usePrepareSendTransaction} from "wagmi";
+import {
+    useAccount,
+    useSendTransaction,
+    useWaitForTransaction,
+    usePrepareSendTransaction,
+} from "wagmi";
 
 export default function HomePage() {
     const router = useRouter();
     const navigate = router.push;
     const [bal, setBal] = useState("");
     const { open } = useWeb3Modal();
-    const [tokenPrice, setTokenPrice] = useState("")
-  const [depositValue, setDepositValue] = useState("");
-  const [depositInputValue, setDepositInputValue] = useState("");
-  const [transactionLoading, setTransactionLoading] = useState(false);
-      const { address, isConnecting, isConnected } = useAccount();
+    const [tokenPrice, setTokenPrice] = useState("");
+    const [depositValue, setDepositValue] = useState("");
+    const [depositInputValue, setDepositInputValue] = useState("");
+    const [transactionLoading, setTransactionLoading] = useState(false);
+    const { address, isConnecting, isConnected } = useAccount();
     const add = getFromLocalStorage("address");
     const toAmount = Number(depositInputValue) * Math.pow(10, 18);
-    const {config} = usePrepareSendTransaction({
+    const { config } = usePrepareSendTransaction({
         to: add,
         value: Math.round(toAmount),
-    })
+    });
     const { data, sendTransaction, status } = useSendTransaction(config);
     const { isLoading, isSuccess, error } = useWaitForTransaction({
         hash: data?.hash,
@@ -33,7 +45,6 @@ export default function HomePage() {
     const [disableBtn, setDisableBtn] = useState(true);
     const [usdValue, setUsdValue] = useState("");
     const [showcopyText, setShowCopyText] = useState(false);
-
 
     const proImg = getFromLocalStorage("address");
 
@@ -51,7 +62,7 @@ export default function HomePage() {
                     18,
                 );
                 const price = (formattedNumber * res.data.ethereum.usd).toFixed(2);
-                setUsdValue(price)
+                setUsdValue(price);
                 if (formattedNumber > 0) {
                     setDisableBtn(false);
                 } else {
@@ -65,37 +76,35 @@ export default function HomePage() {
             });
     };
 
-
-  const handleDepositInputChange = (val) => {
-    const valueWithoutDollarSign = val.replace(/[^\d.]/g, "");
-    let appendDollar = "";
-    if (Number(valueWithoutDollarSign) > 0) {
-      appendDollar = "$";
-    }
-    setDepositValue(`${appendDollar}${valueWithoutDollarSign}`);
-    const tokenIputValue = Number(valueWithoutDollarSign) / Number(tokenPrice);
-    setDepositInputValue(tokenIputValue);
-  };
+    const handleDepositInputChange = (val) => {
+        const valueWithoutDollarSign = val.replace(/[^\d.]/g, "");
+        let appendDollar = "";
+        if (Number(valueWithoutDollarSign) > 0) {
+            appendDollar = "$";
+        }
+        setDepositValue(`${appendDollar}${valueWithoutDollarSign}`);
+        const tokenIputValue = Number(valueWithoutDollarSign) / Number(tokenPrice);
+        setDepositInputValue(tokenIputValue);
+    };
 
     const handleDepositClick = async () => {
-    setTransactionLoading(true);
-    try {
-        const result =  sendTransaction();
-    } catch (e) {
-      setTransactionLoading(false);
-      console.log(e, "error");
-    }
+        setTransactionLoading(true);
+        try {
+            const result = sendTransaction();
+        } catch (e) {
+            setTransactionLoading(false);
+            console.log(e, "error");
+        }
     };
-    
 
-  const handleCopy = () => {
-    copyToClipBoard(add);
-    setShowCopyText(true);
-    setTimeout(() => {
-      setShowCopyText(false);
-    }, 2000);
-  };
-    
+    const handleCopy = () => {
+        copyToClipBoard(add);
+        setShowCopyText(true);
+        setTimeout(() => {
+            setShowCopyText(false);
+        }, 2000);
+    };
+
     useEffect(() => {
         if (!isLoading && isSuccess) {
             setTransactionLoading(false);
@@ -121,12 +130,12 @@ export default function HomePage() {
                             />
                         )}
                     </div>
-                    
+
                     <div className="mt-10 mb-11">
                         <p className="paragraph_regular text-black mb-7">Hey there!</p>
 
                         <h2 className="heading2_bold mb-2 pr-[100px]">
-                            Looks like there are no active goals set.
+                            Looks like there are no challenges
                         </h2>
                         <p className="paragraph_regular mb-5 pr-[120px]">
                             Set a goal and challenge your friends to complete them & Grow
@@ -145,37 +154,50 @@ export default function HomePage() {
                         <div className="flex items-center gap-2 mb-1">
                             <p className="paragraph_regular">Your balance</p>
                             <p className="paragraph_bold text-black">
-                                {trimAddress(add, 4)}</p>
-                                {showcopyText ? <p className="paragraph_bold text-black">
-                                {"Copied!"}</p> : <Image className="cursor-pointer" src={ICONS.copyBlack} onClick={handleCopy} alt="copy_icon" /> }
+                                {trimAddress(add, 4)}
+                            </p>
+                            {showcopyText ? (
+                                <p className="paragraph_bold text-black">{"Copied!"}</p>
+                            ) : (
+                                <Image
+                                    className="cursor-pointer"
+                                    src={ICONS.copyBlack}
+                                    onClick={handleCopy}
+                                    alt="copy_icon"
+                                />
+                            )}
                         </div>
-                            <p className="paragraph_bold text-black mb-1">{`${bal} ETH ($${usdValue})`}</p>
-                            <div className="mt-5">
+                        <p className="paragraph_bold text-black mb-1">{`${bal} ETH ($${usdValue})`}</p>
+                        <div className="mt-5">
                             <InputField
-                                        inputMode="decimal"
-                                        type="text"
-                                        className={``}
-                                        onChange={(e) => {
-                                            handleDepositInputChange(e.target.value);
-                                    }}
-                                    placeholder={"$0"}
-                                        value={depositValue}
-                                        showClose={false}
-                                    />
-                                <Button
-                                    variant={"primary"}
-                                    label={transactionLoading || isLoading ? "Depositting..." : "Deposit"}
-                                    onClick={() => {
-                                        isConnected ? handleDepositClick() : open();
-                                    }}
-                                    className="w-full mt-3"
-                                >
-                                    <div className="flex items-center justify-center gap-2">
-                                        Deposit
-                                    </div>
-                                </Button>
-                            </div>
+                                inputMode="decimal"
+                                type="text"
+                                className={``}
+                                onChange={(e) => {
+                                    handleDepositInputChange(e.target.value);
+                                }}
+                                placeholder={"$0"}
+                                value={depositValue}
+                                showClose={false}
+                            />
+                            <Button
+                                variant={"primary"}
+                                label={
+                                    transactionLoading || isLoading
+                                        ? "Depositting..."
+                                        : "Deposit"
+                                }
+                                onClick={() => {
+                                    isConnected ? handleDepositClick() : open();
+                                }}
+                                className="w-full mt-3"
+                            >
+                                <div className="flex items-center justify-center gap-2">
+                                    Deposit
+                                </div>
+                            </Button>
                         </div>
+                    </div>
                     {/* <div className="pb-10">
                         <div className="p-5 border border-grey2 rounded-4xl">
                             <Image className="w-6 h-6 mb-2" src={ICONS.connectIcon} />

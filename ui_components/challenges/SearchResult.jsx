@@ -3,21 +3,16 @@ import { Button } from "../shared";
 import { getNounAvatar, trimAddress } from "@/utils";
 import Image from "next/image";
 import { useCopyToClipboard } from "@/utils/hooks/useCopyToClipboard";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import {
-    xmtpMessagingService,
-    customXMTPMessagingService,
-} from "@/contract/xmtpProtocol";
+import { xmtpMessagingService } from "@/contract/xmtpProtocol";
 
-const SearchResult = ({ handleUpdateStep, avatar, address, displayName }) => {
+const SearchResult = ({ avatar, address, displayName, baseUrl }) => {
     const [, copy] = useCopyToClipboard();
 
     const handleInviteUser = async () => {
         try {
-            const res = await xmtpMessagingService.sendXMTPMessage(address);
-            // handleUpdateStep("status");
-            console.log(res, "first user message");
+            const content = `Your friend has invited you to a challenge check it here ${baseUrl}`;
+            const res = await xmtpMessagingService.sendXMTPMessage(address, content);
+            console.log(res, "message sent invite user");
         } catch (err) {
             console.log("xmpt error", err);
         }
@@ -48,7 +43,7 @@ const SearchResult = ({ handleUpdateStep, avatar, address, displayName }) => {
 
                 <Button
                     variant={"primary"}
-                    label="Invite by Push protocol"
+                    label="Invite by XMTP Message"
                     onClick={() => handleInviteUser()}
                 />
             </div>

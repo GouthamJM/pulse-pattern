@@ -8,23 +8,25 @@ import { ICONS } from "@/utils/images";
 import { CHALLENGE_COMP } from "@/pages/create-challenge";
 import Image from "next/image";
 import { useCopyToClipboard } from "@/utils/hooks/useCopyToClipboard";
+import Spinner from "../shared/Spinner";
 
 // https://api.web3.bio/profile/
+
 const Invite = ({ handleUpdateStep, challengeId }) => {
     const [, copy] = useCopyToClipboard();
-    const [inputValue, setInputValue] = useState("gouthamjm.eth");
+    const [inputValue, setInputValue] = useState("");
     const [loader, setLoader] = useState(false);
     const [searchResult, setSearchResult] = useState();
     const [baseUrl, setBaseUrl] = useState();
 
     useEffect(() => {
         let base_url = window.location.origin;
-        setBaseUrl(base_url);
-    }, []);
+        setBaseUrl(`${base_url}/challenge/${challengeId}`);
+    }, [challengeId]);
 
     const handleSearchValue = (val) => {
-        setLoader(true);
         if (val) {
+            setLoader(true);
             getSearchResult(val).then((res) => {
                 console.log(res, "res");
                 if (res?.data) {
@@ -46,6 +48,9 @@ const Invite = ({ handleUpdateStep, challengeId }) => {
 
     useEffect(() => {
         debounceInput(inputValue);
+        if (!inputValue) {
+            setSearchResult([]);
+        }
     }, [inputValue]);
 
     return (
@@ -68,15 +73,11 @@ const Invite = ({ handleUpdateStep, challengeId }) => {
                         </p>
                         <div className="pb-4">
                             <div className="heading2_bold ">Share URL</div>
-                            <a href={`${baseUrl}/challenge/${challengeId}`}>
-                                {baseUrl}/challenge/{challengeId}
-                            </a>
+                            <a href={`${baseUrl}`}>{baseUrl}</a>
                             <Image
                                 src={ICONS.copyGray}
                                 alt="copy gray"
-                                onClick={() =>
-                                    copy(`${baseUrl}/challenge/${challengeId}`)
-                                }
+                                onClick={() => copy(baseUrl)}
                                 className="inline cursor-pointer ml-2"
                             />
                         </div>
@@ -96,6 +97,11 @@ const Invite = ({ handleUpdateStep, challengeId }) => {
                     <p className="supportText_regular text-grey p-2">
                         API powered by web3 bio of Mask Network{" "}
                     </p>
+                    {loader && (
+                        <div className="p-4 flex items-center">
+                            <Spinner />
+                        </div>
+                    )}
                     {searchResult && searchResult.length > 0 && !loader && (
                         <div>
                             <p className="paragraph_regular mb-2 mt-6">
@@ -105,6 +111,7 @@ const Invite = ({ handleUpdateStep, challengeId }) => {
                                 return (
                                     <SearchResult
                                         handleUpdateStep={handleUpdateStep}
+                                        baseUrl={baseUrl}
                                         {...item}
                                     />
                                 );

@@ -4,7 +4,7 @@ import { polygonZkEvmTestnet } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 
 const POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT =
-    "0xB0cc48334ef1C07870a52460253b78cE2f46F0B8";
+    "0x16e934c9f67404dEA6dd98A04F8e05369C3F6fa6";
 
 class PulsePatternContract {
     constructor() {

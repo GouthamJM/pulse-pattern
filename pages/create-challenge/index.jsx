@@ -22,7 +22,7 @@ function Challenges() {
     });
 
     const [challengeId, setChallengeId] = useState("");
-    const [challenges, setChallenges] = useState(CHALLENGE_COMP.inviteForChallenge);
+    const [challenges, setChallenges] = useState(CHALLENGE_COMP.stepAndDuration);
 
     const handleUpdateStep = (type) => {
         setChallenges(type);
