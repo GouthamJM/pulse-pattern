@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { BackBtn, Button, InputField, SlidingTab } from "../shared";
 import { challengeTabs } from "@/constants/index.js";
 import { ICONS } from "@/utils/images";
@@ -103,6 +103,7 @@ const ChallengeStepForm = ({ handleUpdateStep, handleUpdateForm, challengeForm }
                                         showClose={false}
                                         step={100}
                                         min={0}
+                                        inputClassName="pr-[88px]"
                                     />
                                     {error && (
                                         <p className="text-red-500 mb-[30px]">{error}</p>
@@ -120,6 +121,7 @@ const ChallengeStepForm = ({ handleUpdateStep, handleUpdateForm, challengeForm }
                                                 });
                                             }}
                                             step={1}
+                                            inputClassName="pr-[88px]"
                                         />
                                     </div>
                                 </div>

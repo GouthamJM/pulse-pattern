@@ -9,7 +9,7 @@ export default function PageLayoutHoc(
             <div className="app mobView">
                 {showHeader && <Header />}
                 {showHeader ? (
-                    <div className="mt-[60px]">
+                    <div className="pt-[60px]">
                         <HocComponent {...props} />
                     </div>
                 ) : (

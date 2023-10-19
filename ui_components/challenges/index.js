@@ -9,6 +9,9 @@ import ChallengesInfo from "./ChallengesInfo";
 import GreetBlk from "./GreetBlk";
 import ChallengeList from "./ChallengeList";
 import ChallengeListItem from "./ChallengeListItem";
+import LiveChallenge from "./LiveChallenge";
+import ChallengeCard from "./ChallengeCard";
+import LastSynced from "./LastSynced";
 
 export {
     ChallengeStepForm,
@@ -22,4 +25,7 @@ export {
     GreetBlk,
     ChallengeList,
     ChallengeListItem,
+    LiveChallenge,
+    ChallengeCard,
+    LastSynced,
 };

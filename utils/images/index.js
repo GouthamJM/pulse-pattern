@@ -26,6 +26,8 @@ import logoWhite from "@/public/assets/images/logo_white.svg";
 import onboardingBg from "@/public/assets/images/onboarding_bg.png";
 import dummyProfile from "@/public/assets/images/dummy_profile.png";
 import trophy from "@/public/assets/images/trophy.svg";
+import refresh from "@/public/assets/images/refresh.svg";
+import chevronRight from "@/public/assets/images/chevron_right.svg";
 
 export const ICONS = {
     arrowBack,
@@ -56,4 +58,6 @@ export const ICONS = {
     walkIconGreen,
     walkPattern,
     trophy,
+    refresh,
+    chevronRight,
 };
