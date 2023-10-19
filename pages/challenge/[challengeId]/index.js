@@ -1,9 +1,11 @@
-import { useRouter } from "next/router";
-
-const { default: userChallenges } = require("@/utils/hooks/api/userChallenges");
+import userChallengeDetail from "@/utils/hooks/api/useChallengeDetail";
+import { useRouter, useParams } from "next/router";
 
 export default function ChallengeDetail() {
     const router = useRouter();
-    const {} = userChallenges();
+    const params = useParams();
+
+    const { challenge } = userChallengeDetail(params.challengeId);
+    console.log(challenge, "challenge");
     return <></>;
 }
