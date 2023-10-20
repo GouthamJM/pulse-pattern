@@ -249,14 +249,16 @@ export default function Onboarding({ handleClick, open, signInLoader }) {
                         Signing in...
                     </p>
                 ) : (
-                    <Button
-                        className={"w-full font-bold"}
-                        variant={"secondary"}
-                        label="Connect Lens account"
-                        onClick={() => {
-                            handleClick();
-                        }}
-                    />
+                    <div className={"w-full font-bold flex items-center "}>
+                        <Button
+                            className={"left-1/2 -translate-x-1/2 font-bold p-4"}
+                            variant={"secondary"}
+                            label="Connect wtih Privy"
+                            onClick={() => {
+                                handleClick();
+                            }}
+                        />
+                    </div>
                 )}
             </div>
         </section>
