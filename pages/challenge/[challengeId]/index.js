@@ -1,11 +1,13 @@
-import { Challenge } from "@/ui_components/challenges";
+import PageLayoutHoc from "@/hocs/PageLayoutHoc";
+import withAuth from "@/hocs/withAuth";
+import { LiveChallenge } from "@/ui_components/challenges";
 import userChallengeDetail from "@/utils/hooks/api/useChallengeDetail";
-import { useRouter, useParams } from "next/router";
+import { useRouter } from "next/router";
 
-export default function ChallengeDetail() {
+function ChallengeDetail() {
     const router = useRouter();
-    const params = useParams();
-
-    const { challenge, userChallengeDetail } = userChallengeDetail(params.challengeId);
-    return <div>Challenge Detail</div>;
+    const { challenge } = userChallengeDetail(router?.query?.challengeId);
+    return <LiveChallenge challenge={challenge} />;
 }
+
+export default withAuth(PageLayoutHoc(ChallengeDetail, { showHeader: true }));

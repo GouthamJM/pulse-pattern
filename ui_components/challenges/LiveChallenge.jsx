@@ -3,7 +3,7 @@ import { ChallengeCard, LastSynced } from ".";
 import Image from "next/image";
 import { ICONS } from "@/utils/images";
 
-const LiveChallenge = () => {
+const LiveChallenge = ({ challenge }) => {
     return (
         <section className="relative h-[calc(100dvh-64px)] pt-4">
             <div className="container mx-auto h-full relative">
@@ -11,7 +11,7 @@ const LiveChallenge = () => {
                     <BackBtn className="mb-2" />
                     <p className="paragraph_regular mb-1">Watch out!</p>
                     <h2 className="heading2_bold mb-6">Challenge is now live</h2>
-                    <ChallengeCard />
+                    <ChallengeCard {...challenge} />
                     <LastSynced />
                     <div>
                         <div className="flex items-center justify-between mb-7">

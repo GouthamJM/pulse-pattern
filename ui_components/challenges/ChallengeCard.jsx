@@ -1,16 +1,19 @@
+import { relativeTimeFromNow } from "@/utils";
 import { ICONS } from "@/utils/images";
 import Image from "next/image";
 
-const ChallengeCard = () => {
+const ChallengeCard = ({ target, amountToBeStaked, expiryDate }) => {
     return (
         <div className="relative w-full bg-black p-6 rounded-3xl overflow-clip mb-4">
             <div className="mb-16 flex items-center gap-4">
                 <Image src={ICONS.walkIconGreen} className="w-[106px]" alt="walk" />
                 <div>
-                    <h2 className="heading2_extrabold text-white mb-1">5,000</h2>
+                    <h2 className="heading2_extrabold text-white mb-1">{target}</h2>
                     <p className="paragraph_regular mb-1"> Steps</p>
 
-                    <p className="paragraph_regular text-white">in 4 days</p>
+                    <p className="paragraph_regular text-white">
+                        in {relativeTimeFromNow(expiryDate)}
+                    </p>
                 </div>
             </div>
             <div className="flex items-center justify-between">
@@ -26,7 +29,9 @@ const ChallengeCard = () => {
                         src={ICONS.ethereum}
                         alt="eth"
                     />
-                    <p className="paragraph_bold text-white">0.02 ETH</p>
+                    <p className="paragraph_bold text-white">
+                        {amountToBeStaked * 2} ETH
+                    </p>
                 </div>
             </div>
             <Image className="absolute right-0 top-0" src={ICONS.walkPattern} />
