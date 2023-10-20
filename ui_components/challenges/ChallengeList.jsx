@@ -1,13 +1,16 @@
 import { useRouter } from "next/router";
 import { ChallengeListItem } from ".";
 import { Button, InputField } from "../shared";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function ChallengeList({ challengesDetail }) {
     const router = useRouter();
     const navigate = router.push;
     const [joinById, setJoinById] = useState(false);
     const [challengeId, setChallengeId] = useState("");
+    const enableJoinButton = useMemo(() => {
+        return !(challengeId.length > 9);
+    }, [challengeId]);
     return (
         <div className="container mx-auto pt-6">
             <div className="flex justify-between pb-4">
@@ -23,10 +26,26 @@ export default function ChallengeList({ challengesDetail }) {
                             />
                             <Button
                                 variant={"secondary"}
-                                onClick={() => navigate("create-challenge")}
-                                className={"h-10 text-sm bg-green text-black "}
+                                onClick={() => {
+                                    navigate("create-challenge");
+                                }}
+                                className={`h-10 text-sm bg-green text-black ${
+                                    enableJoinButton
+                                        ? " cursor-not-allowed opacity-40"
+                                        : ""
+                                }`}
+                                disabled={enableJoinButton}
                             >
                                 Join
+                            </Button>
+                            <Button
+                                variant={"ghost"}
+                                onClick={() => {
+                                    setJoinById(false);
+                                }}
+                                className={`h-10 text-sm  text-black `}
+                            >
+                                Cancel
                             </Button>
                         </div>
                     ) : (
