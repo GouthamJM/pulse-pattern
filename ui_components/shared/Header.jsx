@@ -7,6 +7,7 @@ import { scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
 import { useEffect, useState } from "react";
 
 const Header = () => {
+    const router = useRouter();
     const { walletDetail } = usePrivyWalletDetail();
     const selchain = getFromLocalStorage("selectedChain");
     console.log(selchain, "selchain");
@@ -49,12 +50,19 @@ const Header = () => {
                         <summary className="cursor-pointer  py-1 rounded-full flex items-center justify-center">
                             {/* {selectedChain ? selectedChain.name : ""} */}
                             <Image
-                                    className="w-10 h-10 border border-black rounded-full p-1"
-                                    src={selectedChain ? selectedChain.id === 1442 ? ICONS.polygonLogo : ICONS.scrollLogo : ICONS.scrollLogo}
-                                />
+                                className="w-10 h-10 border border-black rounded-full p-1"
+                                src={
+                                    selectedChain
+                                        ? selectedChain.id === 1442
+                                            ? ICONS.polygonLogo
+                                            : ICONS.scrollLogo
+                                        : ICONS.scrollLogo
+                                }
+                            />
                         </summary>
                         <ul className="p-2 shadow menu dropdown-content z-[50] bg-base-100 rounded-box w-[100px] ">
-                            <li className="flex items-center justify-center"
+                            <li
+                                className="flex items-center justify-center"
                                 onClick={() => {
                                     handleChainSwitch(polygonZkEvmTestnet.id);
                                 }}
@@ -65,7 +73,8 @@ const Header = () => {
                                     src={ICONS.polygonLogo}
                                 />
                             </li>
-                            <li className="flex items-center justify-center"
+                            <li
+                                className="flex items-center justify-center"
                                 onClick={() => {
                                     handleChainSwitch(scrollSepolia.id);
                                 }}
