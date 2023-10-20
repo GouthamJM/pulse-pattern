@@ -28,7 +28,7 @@ import dummyProfile from "@/public/assets/images/dummy_profile.png";
 import trophy from "@/public/assets/images/trophy.svg";
 import refresh from "@/public/assets/images/refresh.svg";
 import chevronRight from "@/public/assets/images/chevron_right.svg";
-
+import privyLogo from "@/public/assets/images/privy.jpeg";
 export const ICONS = {
     arrowBack,
     arrowDown,
@@ -60,4 +60,5 @@ export const ICONS = {
     trophy,
     refresh,
     chevronRight,
+    privyLogo,
 };

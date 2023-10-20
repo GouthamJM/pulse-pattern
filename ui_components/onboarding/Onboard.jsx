@@ -249,14 +249,24 @@ export default function Onboarding({ handleClick, open, signInLoader }) {
                         Signing in...
                     </p>
                 ) : (
-                    <Button
-                        className={"w-full font-bold"}
-                        variant={"secondary"}
-                        label="Connect Lens account"
-                        onClick={() => {
-                            handleClick();
-                        }}
-                    />
+                    <div>
+                        <Button
+                            className={
+                                "absolute font-bold left-1/2 -translate-x-1/2 w-[300px]"
+                            }
+                            variant={"secondary"}
+                            label="Connect via Privy"
+                            onClick={() => {
+                                handleClick();
+                            }}
+                        />
+                        <Image
+                            src={ICONS.privyLogo}
+                            width={32}
+                            height={32}
+                            className="absolute left-1/2 -translate-y-[38px] translate-x-[72px] rounded-full"
+                        />
+                    </div>
                 )}
             </div>
         </section>
