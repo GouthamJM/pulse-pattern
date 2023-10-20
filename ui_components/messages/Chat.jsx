@@ -3,8 +3,9 @@ import {
 } from "@/ui_components/messages";
 import { getFromLocalStorage, getNounAvatar } from "@/utils";
 import { ICONS } from "@/utils/images";
+import { useState } from "react";
 
-const Chat = () => {
+const Chat = ({messages, handleSendMessage}) => {
     const msgs = [
         {
             user: "ADMIN",
@@ -32,6 +33,12 @@ const Chat = () => {
         },
     ];
 
+    const [value, setValue] = useState("")
+
+    const handleInputChange = (val) => {
+        setValue(val);
+    }
+
     const address = getFromLocalStorage("address");
     return (
         <div className="chatWindow flex flex-col pb-6 h-screen bg-white">
@@ -41,24 +48,24 @@ const Chat = () => {
                 <InviteMessage />
             </div>
             <MessageBox /> */}
-            <div className="pt-[128px] justify-between flex flex-col h-[calc(100vh-120px)] bg-[#FAFBFF] pb-6">
+            <div className="mb-[120px] justify-between flex flex-col h-[calc(100vh-220px)] bg-[#FAFBFF] pb-6">
                 <div
                     id="messages"
                     className=" flex flex-col-reverse overflow-y-scroll overflow-hidden"
                 >
                     <div className="chat-message mx-6 mt-5" id="chats">
-                        {msgs.length &&
-                            msgs.map((value, index) => {
+                        {messages?.length &&
+                            messages?.map((value, index) => {
                                 return (
                                     <div
                                         className={`flex items-center ${
-                                            value.user === "ADMIN"
+                                            value.senderAddress === address
                                                 ? "justify-end"
                                                 : "justify-start"
                                         }`}
                                         key={index}
                                     >
-                                        {value.user !== "ADMIN" && (
+                                        {value.senderAddress !== address && (
                                             <div
                                                 className={`w-8 h-8 relative flex flex-shrink-0 mr-2`}
                                             >
@@ -77,7 +84,7 @@ const Chat = () => {
                                             className={` mb-3 py-2 px-5 w-fit max-w-[75%] rounded-tr-2xl rounded-tl-2xl ${
                                                 value.user == name ? "" : ""
                                             } ${
-                                                value.user === "ADMIN"
+                                                value.senderAddress === address
                                                     ? "text-white bg-[#67CA71] rounded-bl-2xl"
                                                     : "text-white bg-[#000000] rounded-br-2xl"
                                             }`}
@@ -87,7 +94,7 @@ const Chat = () => {
                                                 //   wordWrap: "break-word",
                                             }}
                                         >
-                                            {value.message}
+                                            {value.content}
                                         </pre>
                                     </div>
                                 );
@@ -103,12 +110,20 @@ const Chat = () => {
                         type="text"
                         placeholder="Write your message!"
                         id="data"
+                        onChange={(e) => {
+                            handleInputChange(e.target.value)
+                        }}
+                        value={value}
                         className="w-full focus:outline-none border border-[#CFCFCF] focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-8 p-4 bg-white rounded-[30px]"
                     />
-                    <div className="absolute right-8 items-center inset-y-0 hidden sm:flex">
+                    <div className="absolute right-8 items-center inset-y-0 hidden sm:flex" onClick={() => {
+                        handleSendMessage(value);
+                        handleInputChange("");
+                    }}>
                         <button
                             type="button"
                             id="send"
+                            disabled={!value}
                             className="inline-flex items-center justify-center rounded-3xl px-2 py-2 transition duration-500 ease-in-out text-white focus:outline-none"
                         >
                             <svg
