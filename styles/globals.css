@@ -61,13 +61,12 @@
 }
 
 .mobView {
-  width: 100vw;
+  width: 420px;
   min-height: 100vh;
   height: 100%;
   margin: 0 auto;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
