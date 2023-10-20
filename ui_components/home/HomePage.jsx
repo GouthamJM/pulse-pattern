@@ -200,37 +200,6 @@ export default function HomePage() {
                             </div>
                         )}
                     </div>
-                    {/* <div className="pb-10">
-                        <div className="p-5 border border-grey2 rounded-4xl">
-                            <Image className="w-6 h-6 mb-2" src={ICONS.connectIcon} />
-                            <p className="paragraph_regular text-black mb-[14px]">
-                                Link your Strava account to track <br /> accurately
-                            </p>
-                            <Button
-                                variant={"ghost"}
-                                disabled={
-                                    typeof isStravaConnected === "boolean" &&
-                                    isStravaConnected
-                                        ? true
-                                        : false
-                                }
-                            >
-                                <a
-                                    href={
-                                        typeof isStravaConnected === "boolean" &&
-                                        isStravaConnected
-                                            ? ""
-                                            : stravaRedirectUrl
-                                    }
-                                >
-                                    {typeof isStravaConnected === "boolean" &&
-                                    isStravaConnected
-                                        ? "Connected"
-                                        : "Connect"}
-                                </a>
-                            </Button>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </section>
