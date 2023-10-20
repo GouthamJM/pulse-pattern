@@ -11,6 +11,7 @@ module.exports = {
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
         "./hocs/**/*.{js,ts,jsx,tsx,mdx}",
     ],
+    plugins: [require("daisyui")],
 
     theme: {
         extend: {

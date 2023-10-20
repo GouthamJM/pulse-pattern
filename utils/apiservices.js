@@ -18,9 +18,9 @@ const ETHEREUM_REQUESTS = {
     ethTransactionStatus: "eth_getTransactionReceipt",
 };
 
-export const getBalance = async (address) => {
+export const getBalance = async (address, rpcURL) => {
     return new Promise(function (resolve, reject) {
-        globalApiService(ETHEREUM_REQUESTS.ethBalance, [address, "latest"])
+        globalApiService(ETHEREUM_REQUESTS.ethBalance, [address, "latest"], rpcURL)
             .then((response) => {
                 resolve(response);
             })

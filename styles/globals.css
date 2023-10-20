@@ -120,3 +120,10 @@
 .onboardingOverlay {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 56.77%);
 }
+.custom-ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 12ch;
+}

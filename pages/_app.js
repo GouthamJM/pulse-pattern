@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { baseGoerli, scrollSepolia } from "wagmi/chains";
+import { baseGoerli, scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
 import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum";
 import { Web3Modal } from "@web3modal/react";
 import { ToastContainer } from "react-toastify";
@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
                 <PrivyProvider
                     appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID}
                     config={{
-                        supportedChains: [scrollSepolia],
+                        supportedChains: [scrollSepolia, polygonZkEvmTestnet],
                         loginMethods: ["email", "google", "twitter", "github", "apple"],
                     }}
                 >

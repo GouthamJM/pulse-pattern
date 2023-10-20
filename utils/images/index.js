@@ -20,6 +20,8 @@ import walkIcon from "@/public/assets/images/walk_icon.svg";
 import walkIconGreen from "@/public/assets/images/walk_icon_green.svg";
 import SearchResultBg from "@/public/assets/images/search_result_bg.png";
 import StepsPattern from "@/public/assets/images/steps_pattern.png";
+import scrollLogo from "@/public/assets/images/scroll_logo.png";
+import polygonLogo from "@/public/assets/images/polygon_logo.png";
 import copyGray from "@/public/assets/images/copy_gray.svg";
 import copyBlack from "@/public/assets/images/copy_black.svg";
 import logoWhite from "@/public/assets/images/logo_white.svg";
@@ -29,6 +31,10 @@ import trophy from "@/public/assets/images/trophy.svg";
 import refresh from "@/public/assets/images/refresh.svg";
 import chevronRight from "@/public/assets/images/chevron_right.svg";
 import privyLogo from "@/public/assets/images/privy.jpeg";
+import chatSel from "@/public/assets/images/chat_sel.svg";
+import chatUnsel from "@/public/assets/images/chat_unsel.svg";
+import barChartSel from "@/public/assets/images/bar_chart_sel.svg";
+import barChatUnsel from "@/public/assets/images/bar_chart_unsel.svg";
 export const ICONS = {
     arrowBack,
     arrowDown,
@@ -61,4 +67,10 @@ export const ICONS = {
     refresh,
     chevronRight,
     privyLogo,
+    scrollLogo,
+    polygonLogo,
+    chatSel,
+    chatUnsel,
+    barChartSel,
+    barChatUnsel,
 };

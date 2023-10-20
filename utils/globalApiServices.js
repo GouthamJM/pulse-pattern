@@ -1,8 +1,9 @@
 import axios from "axios";
 
 import { BaseGoerli } from "@/constants/baseGoerli";
+import { scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
 
-export const globalApiService = (method, params) => {
+export const globalApiService = (method, params, rpcUrl) => {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
 
@@ -19,7 +20,7 @@ export const globalApiService = (method, params) => {
         body,
     };
 
-    const jsonRpcUrl = "https://1rpc.io/scroll/sepolia";
+    const jsonRpcUrl = rpcUrl;
 
     return fetch(jsonRpcUrl, requestOptions)
         .then((response) => response.json())

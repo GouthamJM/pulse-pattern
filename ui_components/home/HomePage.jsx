@@ -6,6 +6,7 @@ import {
     getNounAvatar,
     trimAddress,
     copyToClipBoard,
+    getFromLocalStorage,
 } from "@/utils";
 
 import { getBalance, getUsdPrice } from "@/utils/apiservices";
@@ -23,6 +24,7 @@ import { useW3iAccount } from "@web3inbox/widget-react";
 import userChallenges from "@/utils/hooks/api/userChallenges";
 import Spinner from "../shared/Spinner";
 import { Challenge } from "../challenges";
+import { scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
 
 export default function HomePage() {
     const [bal, setBal] = useState("");
@@ -54,10 +56,10 @@ export default function HomePage() {
     });
 
     useEffect(() => {
-        if (privyAddress) {
+        if (walletDetail) {
             fetchBalance(privyAddress);
         }
-    }, [privyAddress]);
+    }, [walletDetail]);
 
     useEffect(() => {
         if (!isLoading && isSuccess) {
@@ -70,9 +72,14 @@ export default function HomePage() {
     }, [isSuccess, error, status]);
 
     const fetchBalance = async (address) => {
+        const selChnRPC = getFromLocalStorage("selectedChain");
         getUsdPrice()
             .then(async (res) => {
-                const balance = await getBalance(address);
+                const chains = [scrollSepolia, polygonZkEvmTestnet];
+                console.log("🚀 ~ file: Header.jsx:13 ~ handleChainSwitch ~ chains:", chains)
+                const chnId = walletDetail.chainId.split(":")[1];
+                const selChain = chains.filter((val) => String(val.id) === String(chnId))[0];
+                const balance = await getBalance(address, selChain.rpcUrls.default.http);
                 const formattedNumber = getTokenFormattedNumber(
                     hexToNumber(balance.result),
                     18,
