@@ -3,4 +3,4 @@ import HomePage from "@/ui_components/home/HomePage";
 import withAuth from "@/hocs/withAuth";
 import { LiveChallenge } from "@/ui_components/challenges";
 
-export default withAuth(PageLayoutHoc(LiveChallenge, { showHeader: true }));
+export default withAuth(PageLayoutHoc(HomePage, { showHeader: true }));
