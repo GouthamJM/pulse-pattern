@@ -140,7 +140,7 @@ class PulsePatternContract {
         return await this.getTransactionReceipt(res);
     }
 
-    async getChallenge(_challengeId) {
+    async getChallenge(_challengeId, userAddress) {
         await this.initContractAndClient();
         if (cache.get(_challengeId)) {
             return cache.get("_challengeId");
@@ -160,6 +160,7 @@ class PulsePatternContract {
                 expiryDate,
                 target,
                 totalAcceptedUsers,
+                acceptedUser,
                 totalWinners,
                 isPublicChallenge,
                 isActive,
@@ -174,6 +175,8 @@ class PulsePatternContract {
                 totalWinners,
                 isPublicChallenge,
                 isActive,
+                userAddress,
+                acceptedUser,
             };
             cache.set(_challengeId, formattedResult);
             return formattedResult;

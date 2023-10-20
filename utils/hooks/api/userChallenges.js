@@ -1,25 +1,32 @@
 import { pulsePatternContractService } from "@/contract";
 import { useEffect, useState } from "react";
 
-export default function userChallenges() {
+export default function userChallenges(address) {
     const [challenges, setAllChallenges] = useState([]);
+    const [userChallengeLoader, setUserChallengeLoader] = useState(false);
 
     useEffect(() => {
         (async () => {
-            const challenges = await pulsePatternContractService.getUserChallenges(
-                process.env.NEXT_PUBLIC_EOA_PUBLIC_KEY,
-            );
-            let allChallengesResult = await Promise.allSettled(
-                challenges.map((item) => pulsePatternContractService.getChallenge(item)),
-            );
+            if (address) {
+                setUserChallengeLoader(true);
+                const challenges = await pulsePatternContractService.getUserChallenges(
+                    address,
+                );
+                let allChallengesResult = await Promise.allSettled(
+                    challenges.map((item) =>
+                        pulsePatternContractService.getChallenge(item, address),
+                    ),
+                );
 
-            allChallengesResult = allChallengesResult
-                ?.filter((res) => res.status === "fulfilled")
-                ?.map((res) => res.value);
+                allChallengesResult = allChallengesResult
+                    ?.filter((res) => res.status === "fulfilled")
+                    ?.map((res) => res.value);
 
-            setAllChallenges(allChallengesResult);
+                setUserChallengeLoader(false);
+                setAllChallenges(allChallengesResult);
+            }
         })();
-    }, []);
+    }, [address]);
 
-    return { challenges };
+    return { challenges, userChallengeLoader };
 }

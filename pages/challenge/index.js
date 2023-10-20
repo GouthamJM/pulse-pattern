@@ -1,7 +1,5 @@
-function AllUserChallenges() {
-    return (
-        <div>
-            <h1>All user challenges</h1>
-        </div>
-    );
+import { Challenge } from "@/ui_components/challenges";
+
+export default function AllUserChallenges() {
+    return <Challenge />;
 }

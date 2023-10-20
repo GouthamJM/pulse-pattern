@@ -1,5 +1,8 @@
 import { getNounData, getNounSeedFromBlockHash, ImageData } from "@nouns/assets";
 import { buildSVG } from "@nouns/sdk";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 export const getNounAvatar = (blockhash) => {
     const uniqueNumber = hashString(blockhash);
@@ -111,4 +114,12 @@ export const hexToNumber = (val, divider = 1) => {
 
 export const copyToClipBoard = (val) => {
     navigator.clipboard.writeText(`${val}`);
+};
+
+export const checkIfDateIsValid = (_date) => {
+    return dayjs(_date).isAfter(dayjs());
+};
+
+export const relativeTimeFromNow = (date) => {
+    return dayjs().from(dayjs(date));
 };

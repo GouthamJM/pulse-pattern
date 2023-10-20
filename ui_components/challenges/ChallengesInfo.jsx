@@ -1,29 +1,32 @@
-export default function ChallengesInfo() {
-    const data = [
-        {
-            id: 1,
-            value: 21,
-            title: "Achieved",
-        },
-        {
-            id: 2,
-            value: 3,
-            title: "Failed",
-        },
-        {
-            id: 3,
-            value: 1000,
-            title: "Balance",
-        },
-    ];
+export default function ChallengesInfo({ challengesDetail }) {
     return (
         <div className="flex items-start justify-between mb-6">
-            {data?.map((item) => (
-                <div key={item.id}>
-                    <p className="paragraph_bold"> {item.value} </p>
-                    <p className="paragraph_regular">{item.title}</p>
-                </div>
-            ))}
+            <div>
+                <p className="paragraph_bold">{challengesDetail.total} </p>
+                <p className="paragraph_regular">Total</p>
+            </div>
+            <div>
+                <p className="paragraph_bold">
+                    {challengesDetail?.activeChallenges?.count}{" "}
+                </p>
+                <p className="paragraph_regular">Active</p>
+            </div>
+            <div>
+                <p className="paragraph_bold">
+                    {challengesDetail?.achievedChallenges?.count}{" "}
+                </p>
+                <p className="paragraph_regular">Achieved</p>
+            </div>
+            <div>
+                <p className="paragraph_bold">
+                    {challengesDetail?.failedChallenges?.count}{" "}
+                </p>
+                <p className="paragraph_regular">Failed</p>
+            </div>
+            <div>
+                <p className="paragraph_bold">21 </p>
+                <p className="paragraph_regular">Balance</p>
+            </div>
         </div>
     );
 }
