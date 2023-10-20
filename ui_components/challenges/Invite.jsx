@@ -83,9 +83,7 @@ const Invite = ({ handleUpdateStep, challengeId }) => {
                         </div>
                     </div>
                     <div className="heading2_bold p-4 text-center">Or</div>
-                    <div className="heading2_bold mb-2">
-                        Invite with Push Notification
-                    </div>
+                    <div className="heading2_bold mb-2">Invite</div>
                     <InputField
                         placeholder="NextID/Address/ENS/Lens"
                         isSearch

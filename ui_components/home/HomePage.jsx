@@ -168,35 +168,37 @@ export default function HomePage() {
                             )}
                         </div>
                         <p className="paragraph_bold text-black mb-1">{`${bal} ETH ($${usdValue})`}</p>
-                        <div className="mt-5">
-                            <InputField
-                                inputMode="decimal"
-                                type="text"
-                                className={``}
-                                onChange={(e) => {
-                                    handleDepositInputChange(e.target.value);
-                                }}
-                                placeholder={"$0"}
-                                value={depositValue}
-                                showClose={false}
-                            />
-                            <Button
-                                variant={"primary"}
-                                label={
-                                    transactionLoading || isLoading
-                                        ? "Depositting..."
-                                        : "Deposit"
-                                }
-                                onClick={() => {
-                                    isConnected ? handleDepositClick() : open();
-                                }}
-                                className="w-full mt-3"
-                            >
-                                <div className="flex items-center justify-center gap-2">
-                                    Deposit via Wallet Connect
-                                </div>
-                            </Button>
-                        </div>
+                        {!bal && (
+                            <div className="mt-5">
+                                <InputField
+                                    inputMode="decimal"
+                                    type="text"
+                                    className={``}
+                                    onChange={(e) => {
+                                        handleDepositInputChange(e.target.value);
+                                    }}
+                                    placeholder={"$0"}
+                                    value={depositValue}
+                                    showClose={false}
+                                />
+                                <Button
+                                    variant={"primary"}
+                                    label={
+                                        transactionLoading || isLoading
+                                            ? "Depositting..."
+                                            : "Deposit"
+                                    }
+                                    onClick={() => {
+                                        isConnected ? handleDepositClick() : open();
+                                    }}
+                                    className="w-full mt-3"
+                                >
+                                    <div className="flex items-center justify-center gap-2">
+                                        Deposit via Wallet Connect
+                                    </div>
+                                </Button>
+                            </div>
+                        )}
                     </div>
                     {/* <div className="pb-10">
                         <div className="p-5 border border-grey2 rounded-4xl">

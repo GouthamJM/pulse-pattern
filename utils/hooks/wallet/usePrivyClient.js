@@ -1,4 +1,7 @@
 import { useWallets } from "@privy-io/react-auth";
+import { useEffect, useState } from "react";
+import { createWalletClient, custom } from "viem";
+import { scrollSepolia } from "viem/chains";
 
 export default function usePrivyClient() {
     const { wallets } = useWallets();

@@ -30,10 +30,6 @@ export default function App({ Component, pageProps }) {
                     config={{
                         supportedChains: [scrollSepolia],
                         loginMethods: ["email", "google", "twitter", "github", "apple"],
-                        embeddedWallets: {
-                            createOnLogin: "all-users",
-                            noPromptOnSignature: true,
-                        },
                     }}
                 >
                     <Component {...pageProps} />{" "}

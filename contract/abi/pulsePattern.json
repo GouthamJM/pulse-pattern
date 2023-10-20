@@ -1,92 +1,5 @@
 [
     {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "uint32",
-                "name": "challengeId",
-                "type": "uint32"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "amountToBeStaked",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "expiryDate",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "bool",
-                "name": "isPublicChallenge",
-                "type": "bool"
-            }
-        ],
-        "name": "ChallengeCreated",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "uint32",
-                "name": "challengeId",
-                "type": "uint32"
-            }
-        ],
-        "name": "DeleteChallenge",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "uint32",
-                "name": "challengeId",
-                "type": "uint32"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            }
-        ],
-        "name": "UserAddedToChallenge",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "challengeId",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "winner",
-                "type": "address"
-            }
-        ],
-        "name": "WinnerAdded",
-        "type": "event"
-    },
-    {
         "inputs": [
             {
                 "internalType": "uint32",
@@ -131,63 +44,40 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
         "inputs": [
             {
-                "internalType": "uint32",
-                "name": "",
-                "type": "uint32"
-            }
-        ],
-        "name": "challenges",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "challengeCreatorAddress",
-                "type": "address"
-            },
-            {
+                "indexed": false,
                 "internalType": "uint32",
                 "name": "challengeId",
                 "type": "uint32"
             },
             {
+                "indexed": false,
                 "internalType": "uint256",
                 "name": "amountToBeStaked",
                 "type": "uint256"
             },
             {
+                "indexed": false,
                 "internalType": "uint256",
                 "name": "expiryDate",
                 "type": "uint256"
             },
             {
-                "internalType": "uint256",
-                "name": "target",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint8",
-                "name": "totalAcceptedUsers",
-                "type": "uint8"
-            },
-            {
-                "internalType": "uint8",
-                "name": "totalWinners",
-                "type": "uint8"
-            },
-            {
+                "indexed": false,
                 "internalType": "bool",
                 "name": "isPublicChallenge",
                 "type": "bool"
-            },
-            {
-                "internalType": "bool",
-                "name": "isActive",
-                "type": "bool"
             }
         ],
-        "stateMutability": "view",
-        "type": "function"
+        "name": "ChallengeCreated",
+        "type": "event"
     },
     {
         "inputs": [
@@ -246,6 +136,121 @@
         "name": "deleteChallenge",
         "outputs": [],
         "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint32",
+                "name": "challengeId",
+                "type": "uint32"
+            }
+        ],
+        "name": "DeleteChallenge",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint32",
+                "name": "challengeId",
+                "type": "uint32"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "name": "UserAddedToChallenge",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "challengeId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "winner",
+                "type": "address"
+            }
+        ],
+        "name": "WinnerAdded",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint32",
+                "name": "",
+                "type": "uint32"
+            }
+        ],
+        "name": "challenges",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "challengeCreatorAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint32",
+                "name": "challengeId",
+                "type": "uint32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amountToBeStaked",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "expiryDate",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "target",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint8",
+                "name": "totalAcceptedUsers",
+                "type": "uint8"
+            },
+            {
+                "internalType": "address",
+                "name": "acceptedUser",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "totalWinners",
+                "type": "uint8"
+            },
+            {
+                "internalType": "bool",
+                "name": "isPublicChallenge",
+                "type": "bool"
+            },
+            {
+                "internalType": "bool",
+                "name": "isActive",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -321,6 +326,11 @@
                         "internalType": "uint8",
                         "name": "totalAcceptedUsers",
                         "type": "uint8"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "acceptedUser",
+                        "type": "address"
                     },
                     {
                         "internalType": "uint8",
@@ -404,6 +414,11 @@
                 "internalType": "uint8",
                 "name": "totalAcceptedUsers",
                 "type": "uint8"
+            },
+            {
+                "internalType": "address",
+                "name": "acceptedUser",
+                "type": "address"
             },
             {
                 "internalType": "uint8",

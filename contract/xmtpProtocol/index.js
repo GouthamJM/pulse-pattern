@@ -4,7 +4,7 @@ import {
     RemoteAttachmentCodec,
 } from "@xmtp/content-type-remote-attachment";
 import { createWalletClient, http } from "viem";
-import { polygonZkEvmTestnet } from "viem/chains";
+import { scrollSepolia } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 
 class XMTPProtocol {
@@ -22,7 +22,7 @@ class XMTPProtocol {
 
             this.walletClient = createWalletClient({
                 account,
-                chain: polygonZkEvmTestnet,
+                chain: scrollSepolia,
                 transport: http(),
             });
         }

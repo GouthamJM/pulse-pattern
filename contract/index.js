@@ -6,7 +6,7 @@ import {
     createPublicClient,
     formatEther,
 } from "viem";
-import { polygonZkEvmTestnet } from "viem/chains";
+import { scrollSepolia } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 import { LRUCache } from "lru-cache";
 import dayjs from "dayjs";
@@ -21,8 +21,7 @@ const cache = new LRUCache({
     },
 });
 
-const POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT =
-    "0x16e934c9f67404dEA6dd98A04F8e05369C3F6fa6";
+const SCROLL_ZK_EVM_PULSE_PATTERN_CONTRACT = "0x9a2C54E90BB8E8fb88742019e6767d012e74D4B1";
 
 class PulsePatternContract {
     constructor(walletClient) {
@@ -30,7 +29,7 @@ class PulsePatternContract {
         this.contract;
         this.walletClient = walletClient;
         this.publicClient;
-        this.smartContractAddress = POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT;
+        this.smartContractAddress = SCROLL_ZK_EVM_PULSE_PATTERN_CONTRACT;
     }
 
     async getWalletAddress() {
@@ -40,7 +39,7 @@ class PulsePatternContract {
     async publicClientInit() {
         if (!this.publicClient) {
             this.publicClient = createPublicClient({
-                chain: polygonZkEvmTestnet,
+                chain: scrollSepolia,
                 transport: http(),
             });
         }
@@ -53,7 +52,7 @@ class PulsePatternContract {
 
             this.walletClient = createWalletClient({
                 account,
-                chain: polygonZkEvmTestnet,
+                chain: scrollSepolia,
                 transport: http(),
             });
         }
@@ -64,7 +63,7 @@ class PulsePatternContract {
     async initContract(publicClient) {
         if (!this.contract) {
             this.contract = getContract({
-                address: POLYGON_ZK_EVM_PULSE_PATTERN_CONTRACT,
+                address: SCROLL_ZK_EVM_PULSE_PATTERN_CONTRACT,
                 abi: this.smartContractABI,
                 publicClient,
             });
