@@ -8,19 +8,25 @@ import UserChallengeDetail from "./UserChallengeDetail";
 
 const LiveChallenge = ({ challenge }) => {
     const [currentTab, setCurrentTab] = useState(2);
+    const [showDetail, setShowDetail] = useState(false);
     const handleTabClick = (tabId) => {
         setCurrentTab(tabId);
     }
+    const handleShowDetail = () => {
+        setShowDetail(!showDetail);
+    }
     return (
         <section className="relative h-[calc(100dvh-64px)] pt-4">
-            {currentTab === 1 ? <div className="container mx-auto h-auto relative">
+            {!showDetail && <div>{currentTab === 1  ? <div className="container mx-auto h-auto relative">
                 <div className="h-full w-full">
                     <BackBtn className="mb-2" />
                     <p className="paragraph_regular mb-1">Watch out!</p>
                     <h2 className="heading2_bold mb-6">Challenge is now live</h2>
                     <ChallengeCard {...challenge} />
                     <LastSynced />
-                    <div>
+                    <div onClick={() => {
+                        handleShowDetail();
+                    }}>
                         <div className="flex items-center justify-between mb-7">
                             <div className="flex items-center gap-1">
                                 <Image
@@ -46,15 +52,16 @@ const LiveChallenge = ({ challenge }) => {
                         </div>
                     </div>
                 </div>
-            </div> : <Chat/>}
-            <div className="bg-white grid grid-cols-2 fixed bottom-0 p-5 w-full md:w-[420px]">
+            </div> : <Chat/> }</div> }
+            {<div className="bg-white grid grid-cols-2 fixed bottom-0 p-5 w-full md:w-[420px]">
                 <div className="flex justify-center items-center" onClick={() => handleTabClick(1)}>
-                    {currentTab === 1 ? <Image className="w-6 h-6" src={ICONS.barChartSel} /> : <Image className="w-6 h-6" src={ICONS.barChatUnsel} />}
+                    {currentTab === 1 ? <Image className="w-6 h-6 cursor-pointer" src={ICONS.barChartSel} /> : <Image className="w-6 h-6 cursor-pointer" src={ICONS.barChatUnsel} />}
                 </div>
                 <div className="flex justify-center items-center" onClick={() => handleTabClick(2)}>
-                    {currentTab === 2 ? <Image className="w-6 h-6" src={ICONS.chatSel} /> : <Image className="w-6 h-6" src={ICONS.chatUnsel} />}
+                    {currentTab === 2 ? <Image className="w-6 h-6 cursor-pointer" src={ICONS.chatSel} /> : <Image className="w-6 h-6 cursor-pointer" src={ICONS.chatUnsel} />}
                 </div>
-            </div>
+            </div>}
+            {showDetail && <UserChallengeDetail showDetail={showDetail} handleShowDetail={handleShowDetail}/>}
         </section>
     );
 };

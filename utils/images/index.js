@@ -20,7 +20,7 @@ import walkIcon from "@/public/assets/images/walk_icon.svg";
 import walkIconGreen from "@/public/assets/images/walk_icon_green.svg";
 import SearchResultBg from "@/public/assets/images/search_result_bg.png";
 import StepsPattern from "@/public/assets/images/steps_pattern.png";
-import scrollLogo from "@/public/assets/images/scroll_logo.png";
+import scrollLogo from "@/public/assets/images/scroll_logo.jpeg";
 import polygonLogo from "@/public/assets/images/polygon_logo.png";
 import copyGray from "@/public/assets/images/copy_gray.svg";
 import copyBlack from "@/public/assets/images/copy_black.svg";
@@ -35,6 +35,7 @@ import chatSel from "@/public/assets/images/chat_sel.svg";
 import chatUnsel from "@/public/assets/images/chat_unsel.svg";
 import barChartSel from "@/public/assets/images/bar_chart_sel.svg";
 import barChatUnsel from "@/public/assets/images/bar_chart_unsel.svg";
+import mapDummy from "@/public/assets/images/map_dummy.svg";
 export const ICONS = {
     arrowBack,
     arrowDown,
@@ -73,4 +74,5 @@ export const ICONS = {
     chatUnsel,
     barChartSel,
     barChatUnsel,
+    mapDummy,
 };

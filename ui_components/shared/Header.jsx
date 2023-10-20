@@ -46,27 +46,35 @@ const Header = () => {
                 </div>
                 <div className="flex items-center gap-2">
                     <details className="dropdown">
-                        <summary className="cursor-pointer border border-black py-1 px-2 rounded-full custom-ellipsis">
-                            {selectedChain ? selectedChain.name : ""}
+                        <summary className="cursor-pointer  py-1 rounded-full flex items-center justify-center">
+                            {/* {selectedChain ? selectedChain.name : ""} */}
+                            <Image
+                                    className="w-10 h-10 border border-black rounded-full p-1"
+                                    src={selectedChain ? selectedChain.id === 1442 ? ICONS.polygonLogo : ICONS.scrollLogo : ICONS.scrollLogo}
+                                />
                         </summary>
-                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                            <li
+                        <ul className="p-2 shadow menu dropdown-content z-[50] bg-base-100 rounded-box w-[100px] ">
+                            <li className="flex items-center justify-center"
                                 onClick={() => {
                                     handleChainSwitch(polygonZkEvmTestnet.id);
                                 }}
                             >
                                 {/* <a>{"Polygon ZKevm"}</a> */}
                                 <Image
-                        className="h-14" src={ICONS.polygonLogo} />
+                                    className="w-[70px] h-13 rounded-full"
+                                    src={ICONS.polygonLogo}
+                                />
                             </li>
-                            <li
+                            <li className="flex items-center justify-center"
                                 onClick={() => {
                                     handleChainSwitch(scrollSepolia.id);
                                 }}
                             >
                                 {/* <a>{"Scroll Sepolia"}</a> */}
                                 <Image
-                        className="h-14" src={ICONS.scrollLogo} />
+                                    className="w-[70px] h-13 rounded-full"
+                                    src={ICONS.scrollLogo}
+                                />
                             </li>
                         </ul>
                     </details>
