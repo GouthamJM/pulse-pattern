@@ -19,7 +19,6 @@ class XMTPProtocol {
 
     async initializeConversation(address) {
         const broadcasts_canMessage = await this.xmtpClient.canMessage([address]);
-        console.log(broadcasts_canMessage, "broadcasts_canMessage");
         let initialize = false;
         if (broadcasts_canMessage?.[0]) {
             this.xmtpConversation = await this.xmtpClient.conversations.newConversation(

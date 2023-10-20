@@ -12,7 +12,6 @@ const SearchResult = ({ avatar, address, displayName, baseUrl }) => {
         try {
             const content = `Your friend has invited you to a challenge check it here ${baseUrl}`;
             const res = await xmtpMessagingService.sendXMTPMessage(address, content);
-            console.log(res, "message sent invite user");
         } catch (err) {
             console.log("xmpt error", err);
         }

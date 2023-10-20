@@ -21,7 +21,7 @@ const Invite = ({ handleUpdateStep, challengeId }) => {
 
     useEffect(() => {
         let base_url = window.location.origin;
-        setBaseUrl(`${base_url}/challenge/${challengeId}`);
+        setBaseUrl(`${base_url}/challenge-join/${challengeId}`);
     }, [challengeId]);
 
     const handleSearchValue = (val) => {

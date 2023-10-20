@@ -1,11 +1,6 @@
 import PageLayoutHoc from "@/hocs/PageLayoutHoc";
 import withAuth from "@/hocs/withAuth";
-import {
-    MessageBox,
-    ChatBeginning,
-    ChatHeader,
-    InviteMessage,
-} from "@/ui_components/messages";
+import { ChatHeader } from "@/ui_components/messages";
 import { getFromLocalStorage, getNounAvatar } from "@/utils";
 import { ICONS } from "@/utils/images";
 
@@ -41,11 +36,7 @@ const ChatList = () => {
     return (
         <div className="chatWindow flex flex-col pb-6 h-screen bg-white">
             <ChatHeader />
-            {/* <div className="chatMessages h-full flex flex-col px-4">
-                <ChatBeginning />
-                <InviteMessage />
-            </div>
-            <MessageBox /> */}
+
             <div className="pt-[128px] justify-between flex flex-col h-[calc(100vh-120px)] bg-[#FAFBFF] pb-6">
                 <div
                     id="messages"
@@ -89,7 +80,6 @@ const ChatList = () => {
                                             style={{
                                                 overflow: "auto",
                                                 whiteSpace: "pre-wrap",
-                                                //   wordWrap: "break-word",
                                             }}
                                         >
                                             {value.message}
