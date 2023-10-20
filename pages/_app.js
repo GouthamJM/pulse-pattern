@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { baseGoerli, scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
+import { scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
 import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum";
 import { Web3Modal } from "@web3modal/react";
 import { ToastContainer } from "react-toastify";
@@ -10,7 +10,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
-const chains = [baseGoerli];
+const chains = [scrollSepolia, polygonZkEvmTestnet];
 
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 

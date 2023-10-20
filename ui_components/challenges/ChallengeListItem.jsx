@@ -14,7 +14,7 @@ export default function ChallengeListItem({
     return (
         <div
             className={`relative w-full bg-black p-6 rounded-3xl overflow-clip cursor-pointer ${className}`}
-            onClick={router.push(`/challenge/${challengeId}`)}
+            onClick={() => router.push(`/challenge/${challengeId}`)}
         >
             <div className="mb-16">
                 <Image src={ICONS.walkIconGreen} className="mb-4" alt="walk" />

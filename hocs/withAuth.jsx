@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 
 import { useWeb3Modal } from "@web3modal/react";
 import { useWallets, usePrivy } from "@privy-io/react-auth";
-import { Challenge } from "@/ui_components/challenges";
-import { baseGoerli, scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
+import { scrollSepolia } from "wagmi/chains";
 
 function withAuth(Component) {
     const Auth = (props) => {
@@ -28,7 +27,7 @@ function withAuth(Component) {
                     setLoader(false);
                     saveToLocalStorage(window?.location.pathname, "pathname");
                     if (ready && authenticated && user) {
-                        const embeddedWallet = wallets.find(
+                        const embeddedWallet = wallets?.find(
                             (wallet) => wallet.walletClientType === "privy",
                         );
                         // console.log(embeddedWallet, "embeddedWallet");
@@ -36,8 +35,8 @@ function withAuth(Component) {
                         // console.log("🚀 ~ file: withAuth.jsx:35 ~ initPriv ~ chainSel:", chainSel)
                         if (chainSel === undefined) {
                             console.log("came ");
-                        embeddedWallet && await embeddedWallet.switchChain(534351);
-                        saveToLocalStorage("selectedChain", scrollSepolia);
+                            embeddedWallet && (await embeddedWallet.switchChain(534351));
+                            saveToLocalStorage("selectedChain", scrollSepolia);
                         }
                         saveToLocalStorage("address", embeddedWallet?.address);
                         saveToLocalStorage("isLoggedIn", true);

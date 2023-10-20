@@ -142,45 +142,45 @@ class PulsePatternContract {
 
     async getChallenge(_challengeId, userAddress) {
         await this.initContractAndClient();
-        if (cache.get(_challengeId)) {
-            return cache.get("_challengeId");
-        } else {
-            const result = await this.publicClient.readContract({
-                address: this.smartContractAddress,
-                abi: this.smartContractABI,
-                functionName: "challenges",
-                args: [_challengeId],
-            });
-            if (Array.isArray(result)) {
-            }
-            const [
-                challengeCreatorAddress,
-                challengeId,
-                amountToBeStaked,
-                expiryDate,
-                target,
-                totalAcceptedUsers,
-                acceptedUser,
-                totalWinners,
-                isPublicChallenge,
-                isActive,
-            ] = result;
-            const formattedResult = {
-                challengeCreatorAddress,
-                challengeId,
-                amountToBeStaked: formatEther(amountToBeStaked),
-                expiryDate: dayjs.unix(Number(expiryDate)).format(),
-                target: Number(target),
-                totalAcceptedUsers,
-                totalWinners,
-                isPublicChallenge,
-                isActive,
-                userAddress,
-                acceptedUser,
-            };
-            cache.set(_challengeId, formattedResult);
-            return formattedResult;
+        // if (cache.get(_challengeId)) {
+        //     return cache.get("_challengeId");
+        // } else {
+        const result = await this.publicClient.readContract({
+            address: this.smartContractAddress,
+            abi: this.smartContractABI,
+            functionName: "challenges",
+            args: [_challengeId],
+        });
+        if (Array.isArray(result)) {
         }
+        const [
+            challengeCreatorAddress,
+            challengeId,
+            amountToBeStaked,
+            expiryDate,
+            target,
+            totalAcceptedUsers,
+            acceptedUser,
+            totalWinners,
+            isPublicChallenge,
+            isActive,
+        ] = result;
+        const formattedResult = {
+            challengeCreatorAddress,
+            challengeId,
+            amountToBeStaked: formatEther(amountToBeStaked),
+            expiryDate: dayjs.unix(Number(expiryDate)).format(),
+            target: Number(target),
+            totalAcceptedUsers,
+            totalWinners,
+            isPublicChallenge,
+            isActive,
+            userAddress,
+            acceptedUser,
+        };
+        cache.set(_challengeId, formattedResult);
+        return formattedResult;
+        // }
     }
 
     // public write

@@ -3,68 +3,57 @@ import {
     AttachmentCodec,
     RemoteAttachmentCodec,
 } from "@xmtp/content-type-remote-attachment";
-import { createWalletClient, http } from "viem";
-import { scrollSepolia } from "viem/chains";
-import { privateKeyToAccount } from "viem/accounts";
 
 class XMTPProtocol {
-    constructor(accountPrivateKey = process.env.NEXT_PUBLIC_EOA_PRIVATE_KEY) {
+    constructor(walletClient) {
         this.xmtpClient = null;
-        this.walletClient;
+        this.walletClient = walletClient;
         this.xmtpConversation;
-        this.accountPrivateKey = accountPrivateKey;
-    }
-
-    // private
-    async walletClientInit() {
-        if (!this.walletClient) {
-            const account = privateKeyToAccount(this.accountPrivateKey);
-
-            this.walletClient = createWalletClient({
-                account,
-                chain: scrollSepolia,
-                transport: http(),
-            });
-        }
-        return this.walletClient;
     }
 
     async initializeUser() {
-        if (!this.user) {
-            await this.walletClientInit();
-            this.xmtpClient = await Client.create(this.walletClient, { env: "dev" });
-            this.xmtpClient.registerCodec(new AttachmentCodec());
-            this.xmtpClient.registerCodec(new RemoteAttachmentCodec());
-        }
+        this.xmtpClient = await Client.create(this.walletClient, { env: "dev" });
+        this.xmtpClient.registerCodec(new AttachmentCodec());
+        this.xmtpClient.registerCodec(new RemoteAttachmentCodec());
     }
 
     async initializeConversation(address) {
         const broadcasts_canMessage = await this.xmtpClient.canMessage([address]);
-        if (broadcasts_canMessage) {
+        console.log(broadcasts_canMessage, "broadcasts_canMessage");
+        let initialize = false;
+        if (broadcasts_canMessage?.[0]) {
             this.xmtpConversation = await this.xmtpClient.conversations.newConversation(
                 address,
             );
+            initialize = true;
+        }
+
+        return initialize;
+    }
+
+    // for fetching all conversations
+    async getConversation(address) {
+        await this.initializeUser();
+        const checkInit = await this.initializeConversation(address);
+        if (checkInit) {
+            const messages = await this.xmtpConversation.messages();
+            return messages;
+        } else {
+            return [];
         }
     }
 
-    async getConversation(address) {
-        await this.initializeUser();
-        await this.initializeConversation(address);
-        const messages = await this.xmtpConversation.messages();
-        return messages;
-    }
-
+    // for sending message
     async sendXMTPMessage(address, message) {
         await this.initializeUser();
         await this.initializeConversation(address);
-        const messages = await this.xmtpConversation.send(message);
+        const messages = await this?.xmtpConversation?.send(message);
         return messages;
     }
 }
 
-const xmtpMessagingService = new XMTPProtocol();
-const customXMTPMessagingService = (accountPrivateKey) => {
-    return new XMTPProtocol(accountPrivateKey);
+const customXMTPMessagingService = (walletClient) => {
+    return new XMTPProtocol(walletClient);
 };
 
-export { xmtpMessagingService, customXMTPMessagingService };
+export { customXMTPMessagingService };
