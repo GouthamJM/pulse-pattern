@@ -98,3 +98,46 @@ export const getSendTransactionStatus = async (hash) => {
             .catch((e) => reject(e));
     });
 };
+
+export const getStepsCount = (challengeId) => {
+    const config = {
+        method: "get",
+        url: `https://pulse.codecrane.com/api/challenge/${challengeId}`,
+        headers: { "Content-Type": "application/json" },
+    };
+    return new Promise((resolve) => {
+        axiosInstance(config)
+            .then((res) => {
+                if (res.status === 200) {
+                    resolve(res);
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    });
+};
+
+export const postChallengeSteps = ({ challenge_id, user_address, steps }) => {
+    const config = {
+        method: "post",
+        url: `https://pulse.codecrane.com/api/challenges`,
+        headers: { "Content-Type": "application/json" },
+        body: {
+            challenge_id,
+            user_address,
+            steps,
+        },
+    };
+    return new Promise((resolve) => {
+        axiosInstance(config)
+            .then((res) => {
+                if (res.status === 200) {
+                    resolve(res);
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    });
+};

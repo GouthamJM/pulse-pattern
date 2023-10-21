@@ -2,13 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import { BackBtn, Button, InputField } from "@/ui_components/shared";
 import { getFromLocalStorage, getTokenFormattedNumber } from "@/utils";
 
-import { getBalance, getUsdPrice } from "@/utils/apiservices";
+import { getBalance, getUsdPrice, postChallengeSteps } from "@/utils/apiservices";
 import { hexToNumber, parseEther } from "viem";
 import { ICONS } from "@/utils/images";
 import Image from "next/image";
 import { customAlphabet } from "nanoid";
 import { CHALLENGE_COMP } from "@/pages/create-challenge";
-import { customPulsePatternContract, pulsePatternContractService } from "@/contract";
+import { customPulsePatternContract } from "@/contract";
 import dayjs from "dayjs";
 import Spinner from "../shared/Spinner";
 import usePrivyClient from "@/utils/hooks/wallet/usePrivyClient";
@@ -22,7 +22,6 @@ const ChallengeDepositForm = ({
 }) => {
     const { privyClient } = usePrivyClient();
     const [bal, setBal] = useState("");
-    const [tokenPrice, setTokenPrice] = useState("");
     const [loader, setLoader] = useState(false);
     useEffect(() => {
         fetchBalance();
@@ -35,18 +34,13 @@ const ChallengeDepositForm = ({
     const fetchBalance = async () => {
         const address = getFromLocalStorage("address");
         getUsdPrice()
-            .then(async (res) => {
+            .then(async () => {
                 const balance = await getBalance(address);
                 const formattedNumber = getTokenFormattedNumber(
                     hexToNumber(balance.result),
                     18,
                 );
                 setBal(formattedNumber);
-                setTokenPrice(res.data.ethereum.usd);
-                const formatBal = (
-                    (hexToNumber(balance.result) / Math.pow(10, 18)) *
-                    res.data.ethereum.usd
-                ).toFixed(3);
             })
             .catch((e) => {
                 console.log(e);
@@ -78,6 +72,12 @@ const ChallengeDepositForm = ({
                 _target,
                 _isPublicChallenge,
             );
+            const user_address = getFromLocalStorage("address");
+            await postChallengeSteps({
+                challenge_id: Number(_challengeId),
+                user_address,
+                steps: 0,
+            });
             setLoader(false);
             handleUpdateStep(CHALLENGE_COMP.inviteForChallenge);
         } else {

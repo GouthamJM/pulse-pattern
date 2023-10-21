@@ -205,6 +205,11 @@
                 "type": "address"
             },
             {
+                "internalType": "address",
+                "name": "acceptedUser",
+                "type": "address"
+            },
+            {
                 "internalType": "uint32",
                 "name": "challengeId",
                 "type": "uint32"
@@ -228,11 +233,6 @@
                 "internalType": "uint8",
                 "name": "totalAcceptedUsers",
                 "type": "uint8"
-            },
-            {
-                "internalType": "address",
-                "name": "acceptedUser",
-                "type": "address"
             },
             {
                 "internalType": "uint8",
@@ -303,6 +303,11 @@
                         "type": "address"
                     },
                     {
+                        "internalType": "address",
+                        "name": "acceptedUser",
+                        "type": "address"
+                    },
+                    {
                         "internalType": "uint32",
                         "name": "challengeId",
                         "type": "uint32"
@@ -326,11 +331,6 @@
                         "internalType": "uint8",
                         "name": "totalAcceptedUsers",
                         "type": "uint8"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "acceptedUser",
-                        "type": "address"
                     },
                     {
                         "internalType": "uint8",
@@ -391,6 +391,11 @@
                 "type": "address"
             },
             {
+                "internalType": "address",
+                "name": "acceptedUser",
+                "type": "address"
+            },
+            {
                 "internalType": "uint32",
                 "name": "challengeId",
                 "type": "uint32"
@@ -414,11 +419,6 @@
                 "internalType": "uint8",
                 "name": "totalAcceptedUsers",
                 "type": "uint8"
-            },
-            {
-                "internalType": "address",
-                "name": "acceptedUser",
-                "type": "address"
             },
             {
                 "internalType": "uint8",

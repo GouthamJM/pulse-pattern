@@ -5,6 +5,7 @@ import { ICONS } from "@/utils/images";
 import { useState } from "react";
 import { Chat } from "../messages";
 import UserChallengeDetail from "./UserChallengeDetail";
+import { getNounAvatar, trimAddress } from "@/utils";
 
 const LiveChallenge = ({ challenge }) => {
     const [currentTab, setCurrentTab] = useState(1);
@@ -15,6 +16,7 @@ const LiveChallenge = ({ challenge }) => {
     const handleShowDetail = () => {
         setShowDetail(!showDetail);
     };
+
     return (
         <section className="relative h-[calc(100dvh-64px)] pt-4">
             {!showDetail && (
@@ -39,24 +41,49 @@ const LiveChallenge = ({ challenge }) => {
                                         <div className="flex items-center gap-1">
                                             <Image
                                                 className="w-10 rounded-full"
-                                                src={ICONS.Profile}
+                                                src={getNounAvatar(
+                                                    challenge?.challengeCreatorAddress,
+                                                )}
+                                                width={16}
+                                                height={16}
                                             />
                                             <p className="paragraph_regular text-black">
-                                                You
+                                                {challenge?.challengeCreatorAddress ==
+                                                challenge?.userAddress
+                                                    ? "You"
+                                                    : `${trimAddress(
+                                                          challenge?.challengeCreatorAddress,
+                                                          4,
+                                                      )}`}
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <p className="paragraph_regular text-red">
                                                 200 steps
                                             </p>
+
                                             <Image src={ICONS.chevronRight} />
                                         </div>
                                     </div>
+
                                     <div className="flex items-center justify-between mb-7">
                                         <div className="flex items-center gap-1">
-                                            <Image className="w-10" src={ICONS.Profile} />
+                                            <Image
+                                                className="w-10 rounded-full"
+                                                src={getNounAvatar(
+                                                    challenge?.acceptedUser,
+                                                )}
+                                                width={16}
+                                                height={16}
+                                            />
                                             <p className="paragraph_regular text-black">
-                                                You
+                                                {challenge?.userAddress ==
+                                                challenge?.acceptedUser
+                                                    ? "You"
+                                                    : `${trimAddress(
+                                                          challenge?.acceptedUser,
+                                                          4,
+                                                      )}`}
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2">

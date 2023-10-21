@@ -21,7 +21,7 @@ const cache = new LRUCache({
     },
 });
 
-const SCROLL_ZK_EVM_PULSE_PATTERN_CONTRACT = "0x9a2C54E90BB8E8fb88742019e6767d012e74D4B1";
+const SCROLL_ZK_EVM_PULSE_PATTERN_CONTRACT = "0x8B9d507Ee87ccf385410046DC05c76f34046c2D7";
 
 class PulsePatternContract {
     constructor(walletClient) {
@@ -142,7 +142,6 @@ class PulsePatternContract {
 
     async getChallenge(_challengeId, userAddress) {
         await this.initContractAndClient();
-
         const result = await this.publicClient.readContract({
             address: this.smartContractAddress,
             abi: this.smartContractABI,
@@ -152,16 +151,17 @@ class PulsePatternContract {
 
         const [
             challengeCreatorAddress,
+            acceptedUser,
             challengeId,
             amountToBeStaked,
             expiryDate,
             target,
             totalAcceptedUsers,
-            acceptedUser,
             totalWinners,
             isPublicChallenge,
             isActive,
         ] = result;
+
         const formattedResult = {
             challengeCreatorAddress,
             challengeId,
@@ -179,7 +179,8 @@ class PulsePatternContract {
     }
 
     // public write
-    async addUserToChallenge(_challengeId) {
+    async addUserToChallenge(_challengeId, value) {
+        console.log(_challengeId, value, "test");
         await this.initContractAndClient();
 
         const res = await this.walletClient.writeContract({
@@ -187,6 +188,7 @@ class PulsePatternContract {
             abi: this.smartContractABI,
             functionName: "addUserToChallenge",
             args: [_challengeId],
+            value,
         });
 
         return await this.getTransactionReceipt(res);

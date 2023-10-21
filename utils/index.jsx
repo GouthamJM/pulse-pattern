@@ -5,31 +5,37 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 export const getNounAvatar = (blockhash) => {
-    const uniqueNumber = hashString(blockhash);
-    const seed = getNounSeedFromBlockHash(uniqueNumber, padTo32Bytes(blockhash));
-    const { parts, background } = getNounData(seed);
-    const { palette } = ImageData; // Used with `buildSVG``
-    const svgBinary = buildSVG(parts, palette, background);
-    const svgBase64 = btoa(svgBinary);
-    return `data:image/svg+xml;base64,${svgBase64}`;
+    if (blockhash && typeof blockhash == "string") {
+        const uniqueNumber = hashString(blockhash);
+        const seed = getNounSeedFromBlockHash(uniqueNumber, padTo32Bytes(blockhash));
+        const { parts, background } = getNounData(seed);
+        const { palette } = ImageData; // Used with `buildSVG``
+        const svgBinary = buildSVG(parts, palette, background);
+        const svgBase64 = btoa(svgBinary);
+        return `data:image/svg+xml;base64,${svgBase64}`;
+    } else {
+        return "";
+    }
 };
 
 function padTo32Bytes(hexAddress) {
-    // Remove the '0x' prefix if present
-    let cleanHexAddress = hexAddress.startsWith("0x")
-        ? hexAddress.substring(2)
-        : hexAddress;
+    if (hexAddress && typeof hexAddress == "string") {
+        // Remove the '0x' prefix if present
+        let cleanHexAddress = hexAddress?.startsWith("0x")
+            ? hexAddress.substring(2)
+            : hexAddress;
 
-    // Check if the address is already 32 bytes (64 hex characters)
-    if (cleanHexAddress.length === 64) {
+        // Check if the address is already 32 bytes (64 hex characters)
+        if (cleanHexAddress.length === 64) {
+            return "0x" + cleanHexAddress;
+        }
+
+        // Pad zeros to make it 32 bytes (64 hex characters)
+        const paddingNeeded = 64 - cleanHexAddress.length;
+        cleanHexAddress = "0".repeat(paddingNeeded) + cleanHexAddress;
+
         return "0x" + cleanHexAddress;
     }
-
-    // Pad zeros to make it 32 bytes (64 hex characters)
-    const paddingNeeded = 64 - cleanHexAddress.length;
-    cleanHexAddress = "0".repeat(paddingNeeded) + cleanHexAddress;
-
-    return "0x" + cleanHexAddress;
 }
 
 function hashString(str) {
@@ -47,7 +53,7 @@ function hashString(str) {
 }
 
 export const trimAddress = (val, charsToKeep = 8) => {
-    if (!val) {
+    if (!val || typeof val !== "string") {
         return;
     }
     if (val.length <= charsToKeep * 2) {

@@ -63,11 +63,15 @@ function JoinChallenge() {
         const challengeStatus = await customPulsePatternContract(
             privyClient,
         ).addUserToChallenge(
-            BigInt(router?.query?.challengeId),
-            parseEther(challenge.amountToBeStaked),
+            Number(router?.query?.challengeId),
+            Number(parseEther(challenge.amountToBeStaked)),
         );
-        console.log(challengeStatus, "challengeStatus");
-        // router.push(`/challenge/${router?.query?.challengeId}`);
+
+        await postChallengeSteps({
+            challenge_id: Number(router?.query?.challengeId),
+            user_address: privyAddress,
+            steps: 0,
+        });
     };
     return (
         <section className="relative h-[calc(100dvh-64px)] pt-4">
