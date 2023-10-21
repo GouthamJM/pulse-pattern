@@ -6,7 +6,7 @@ export default function Greet() {
     const { walletDetail } = usePrivyWalletDetail();
     return (
         <div className="flex items-start gap-2">
-            {walletDetail.address && (
+            {walletDetail?.address && (
                 <Image
                     className="rounded-t-2xl rounded-br rounded-bl-2xl"
                     width={50}
@@ -15,7 +15,6 @@ export default function Greet() {
                     alt="profile"
                 />
             )}
-
             <p className="paragraph_regular">Good morning!</p>
         </div>
     );

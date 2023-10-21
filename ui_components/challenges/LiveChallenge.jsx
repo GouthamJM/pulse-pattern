@@ -7,7 +7,7 @@ import { Chat } from "../messages";
 import UserChallengeDetail from "./UserChallengeDetail";
 
 const LiveChallenge = ({ challenge }) => {
-    const [currentTab, setCurrentTab] = useState(2);
+    const [currentTab, setCurrentTab] = useState(1);
     const [showDetail, setShowDetail] = useState(false);
     const handleTabClick = (tabId) => {
         setCurrentTab(tabId);

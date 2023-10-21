@@ -1,7 +1,7 @@
 import { useWallets } from "@privy-io/react-auth";
 import { useEffect, useState } from "react";
 import { createWalletClient, custom } from "viem";
-import { scrollSepolia, mainnet } from "viem/chains";
+import { scrollSepolia } from "viem/chains";
 
 export default function usePrivyClient() {
     const { wallets } = useWallets();
@@ -16,7 +16,7 @@ export default function usePrivyClient() {
                 const ethProvider = await embeddedWallet?.getEthereumProvider();
                 const client = createWalletClient({
                     account: embeddedWallet?.address,
-                    chain: mainnet,
+                    chain: scrollSepolia,
                     transport: custom(ethProvider),
                 });
                 setPrivyClient(client);

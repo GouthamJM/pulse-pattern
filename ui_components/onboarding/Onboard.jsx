@@ -49,11 +49,19 @@ export default function Onboarding({ handleClick, open, signInLoader }) {
             <div className="absolute bottom-11 left-1/2 -translate-x-1/2 w-[calc(100vw-40px)]">
                 <div className="mb-5">
                     <p className="paragraph_regular text-grey2 mb-4 text-center">
-                        Sponsered by
+                        Built on
                     </p>
-                    <div className="flex items-center justify-center bg-white">
-                        <Image className="w-20 h-15" src={ICONS.polygonLogo} />
-                        <Image className="w-20 h-15" src={ICONS.scrollLogo} />
+                    <div className="flex items-center justify-center gap-4">
+                        <Image
+                            className="w-15 h-15 rounded-full"
+                            src={ICONS.scrollLogo}
+                            width={56}
+                        />
+                        <Image
+                            className="w-15 h-15 rounded-full"
+                            src={ICONS.polygonLogo}
+                            width={56}
+                        />
                     </div>
                 </div>
                 <p className="paragraph_regular text-grey2 mb-4 text-center">

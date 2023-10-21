@@ -39,7 +39,6 @@ export default function HomePage() {
     const router = useRouter();
     const navigate = router.push;
     const { walletDetail } = usePrivyWalletDetail();
-
     const privyAddress = walletDetail?.address;
     const { challenges, userChallengeLoader } = userChallenges(privyAddress);
     const { isConnected } = useW3iAccount();
@@ -72,13 +71,17 @@ export default function HomePage() {
     }, [isSuccess, error, status]);
 
     const fetchBalance = async (address) => {
-        const selChnRPC = getFromLocalStorage("selectedChain");
         getUsdPrice()
             .then(async (res) => {
                 const chains = [scrollSepolia, polygonZkEvmTestnet];
-                console.log("🚀 ~ file: Header.jsx:13 ~ handleChainSwitch ~ chains:", chains)
+                console.log(
+                    "🚀 ~ file: Header.jsx:13 ~ handleChainSwitch ~ chains:",
+                    chains,
+                );
                 const chnId = walletDetail.chainId.split(":")[1];
-                const selChain = chains.filter((val) => String(val.id) === String(chnId))[0];
+                const selChain = chains.filter(
+                    (val) => String(val.id) === String(chnId),
+                )[0];
                 const balance = await getBalance(address, selChain.rpcUrls.default.http);
                 const formattedNumber = getTokenFormattedNumber(
                     hexToNumber(balance.result),

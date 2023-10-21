@@ -14,9 +14,9 @@ function withAuth(Component) {
         const [signInLoader, setSignInLoader] = useState(false);
 
         const { open } = useWeb3Modal();
-        const { login, ready, authenticated, user } = usePrivy();
+        const { login, ready, authenticated, user, createWallet } = usePrivy();
         const { wallets } = useWallets();
-        const handleClick = () => {
+        const handleClick = async () => {
             setSignInLoader(true);
             login();
         };
@@ -30,11 +30,9 @@ function withAuth(Component) {
                         const embeddedWallet = wallets?.find(
                             (wallet) => wallet.walletClientType === "privy",
                         );
-                        // console.log(embeddedWallet, "embeddedWallet");
+
                         const chainSel = getFromLocalStorage("selectedChain");
-                        // console.log("🚀 ~ file: withAuth.jsx:35 ~ initPriv ~ chainSel:", chainSel)
                         if (chainSel === undefined) {
-                            console.log("came ");
                             embeddedWallet && (await embeddedWallet.switchChain(534351));
                             saveToLocalStorage("selectedChain", scrollSepolia);
                         }

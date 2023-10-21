@@ -36,6 +36,7 @@ import chatUnsel from "@/public/assets/images/chat_unsel.svg";
 import barChartSel from "@/public/assets/images/bar_chart_sel.svg";
 import barChatUnsel from "@/public/assets/images/bar_chart_unsel.svg";
 import mapDummy from "@/public/assets/images/map_dummy.svg";
+import logoutIcon from "@/public/assets/images/logout.png";
 export const ICONS = {
     arrowBack,
     arrowDown,
@@ -75,4 +76,5 @@ export const ICONS = {
     barChartSel,
     barChatUnsel,
     mapDummy,
+    logoutIcon,
 };

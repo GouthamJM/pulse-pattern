@@ -142,17 +142,14 @@ class PulsePatternContract {
 
     async getChallenge(_challengeId, userAddress) {
         await this.initContractAndClient();
-        // if (cache.get(_challengeId)) {
-        //     return cache.get("_challengeId");
-        // } else {
+
         const result = await this.publicClient.readContract({
             address: this.smartContractAddress,
             abi: this.smartContractABI,
             functionName: "challenges",
             args: [_challengeId],
         });
-        if (Array.isArray(result)) {
-        }
+
         const [
             challengeCreatorAddress,
             challengeId,
@@ -178,9 +175,7 @@ class PulsePatternContract {
             userAddress,
             acceptedUser,
         };
-        cache.set(_challengeId, formattedResult);
         return formattedResult;
-        // }
     }
 
     // public write
@@ -212,14 +207,14 @@ class PulsePatternContract {
     }
 
     // public write
-    async deleteChallenge(_challengeId) {
+    async deleteChallenge(_challengeId, _betAmount) {
         await this.initContractAndClient();
 
         const res = await this.walletClient.writeContract({
             address: this.smartContractAddress,
             abi: this.smartContractABI,
             functionName: "deleteChallenge",
-            args: [_challengeId],
+            args: [_challengeId, _betAmount],
         });
 
         return await this.getTransactionReceipt(res);

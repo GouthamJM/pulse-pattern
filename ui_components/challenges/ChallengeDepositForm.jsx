@@ -78,7 +78,6 @@ const ChallengeDepositForm = ({
                 _target,
                 _isPublicChallenge,
             );
-            console.log(challengeStatus, "challengeStatus");
             setLoader(false);
             handleUpdateStep(CHALLENGE_COMP.inviteForChallenge);
         } else {

@@ -5,23 +5,17 @@ import Image from "next/image";
 import usePrivyWalletDetail from "@/utils/hooks/wallet/usePrivyWalletDetail";
 import { scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
 import { useEffect, useState } from "react";
+import { usePrivy } from "@privy-io/react-auth";
 
 const Header = () => {
     const router = useRouter();
     const { walletDetail } = usePrivyWalletDetail();
-    const selchain = getFromLocalStorage("selectedChain");
-    console.log(selchain, "selchain");
+    const { logout } = usePrivy();
     const [selectedChain, setSelectedChain] = useState();
     const handleChainSwitch = async (chainId) => {
-        console.log(walletDetail.chainId, "chain id");
-        console.log("🚀 ~ file: Header.jsx:12 ~ handleChainSwitch ~ chainId:", chainId);
         const chains = [scrollSepolia, polygonZkEvmTestnet];
-        console.log("🚀 ~ file: Header.jsx:13 ~ handleChainSwitch ~ chains:", chains);
         const selChain = chains.filter((val) => String(val.id) === String(chainId))[0];
-        console.log(
-            "🚀 ~ file: Header.jsx:15 ~ handleChainSwitch ~ selChahhuhuin:",
-            selChain,
-        );
+
         await walletDetail.switchChain(chainId);
         saveToLocalStorage("selectedChain", selChain);
     };
@@ -29,7 +23,6 @@ const Header = () => {
     useEffect(() => {
         if (walletDetail) {
             const chains = [scrollSepolia, polygonZkEvmTestnet];
-            console.log("🚀 ~ file: Header.jsx:13 ~ handleChainSwitch ~ chains:", chains);
             const chnId = walletDetail.chainId.split(":")[1];
             const selChain = chains.filter((val) => String(val.id) === String(chnId))[0];
             setSelectedChain(selChain);
@@ -97,6 +90,18 @@ const Header = () => {
                                 ? ICONS.Profile
                                 : getNounAvatar(walletDetail.address)
                         }
+                    />
+
+                    <Image
+                        className="w-8 h-8 rounded-full cursor-pointer"
+                        width={32}
+                        height={32}
+                        src={ICONS.logoutIcon}
+                        onClick={async () => {
+                            await logout();
+                            router.push("/");
+                            window.location.reload();
+                        }}
                     />
                 </div>
             </div>

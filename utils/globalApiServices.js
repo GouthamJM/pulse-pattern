@@ -1,8 +1,5 @@
 import axios from "axios";
 
-import { BaseGoerli } from "@/constants/baseGoerli";
-import { scrollSepolia, polygonZkEvmTestnet } from "wagmi/chains";
-
 export const globalApiService = (method, params, rpcUrl) => {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
