@@ -1,0 +1,52 @@
+version: '3'
+
+volumes:
+  backend-static:
+
+services:
+  redis:
+    image: "redis:alpine"
+  pulse:
+    restart: always
+    build: .
+    image: pulse_backend
+    env_file: .env
+    ports:
+      - "8002:8006"
+    command: gunicorn -w 10 pulse.wsgi:application -b :8006 -t 9999
+    volumes:
+      - .:/pulse
+      - backend-static:/pulse/static
+    depends_on:
+      - redis
+  celery:
+    build: .
+    container_name: pulse_celery_worker
+    command: celery worker -A pulse --loglevel=debug --concurrency=4
+    volumes:
+      - .:/pulse
+    depends_on:
+      - redis
+      - pulse
+  celery-beat:
+    build: .
+    container_name: pulse_celery_beat
+    environment:
+        CELERY_BROKER_URL: 'redis://redis:6379'
+    command: celery -A pulse beat --loglevel=debug --scheduler=django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - .:/pulse
+    depends_on:
+      - redis
+      - pulse
+
+  nginx:
+    restart: always
+    build: ./nginx/
+    image: pulse_backend_nginx
+    ports:
+      - "8084:8084"
+    volumes:
+      - backend-static:/var/www/pulse/static
+    depends_on:
+      - pulse
