@@ -69,9 +69,9 @@ const ChallengeStepForm = ({ handleUpdateStep, handleUpdateForm, challengeForm }
                                         </p>
                                     </div>
                                 </div>
-                                <p className="text-right paragraph_regular text-grey5">
+                                {/* <p className="text-right paragraph_regular text-grey5">
                                     in <br /> 1 days
-                                </p>
+                                </p> */}
                             </div>
                             <Image
                                 className="w-full absolute left-0 top-0 z-0"
