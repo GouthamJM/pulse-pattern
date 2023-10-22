@@ -12,6 +12,8 @@ import { customPulsePatternContract } from "@/contract";
 import dayjs from "dayjs";
 import Spinner from "../shared/Spinner";
 import usePrivyClient from "@/utils/hooks/wallet/usePrivyClient";
+import { polygonZkEvmTestnet, scrollSepolia } from "viem/chains";
+import usePrivyWalletDetail from "@/utils/hooks/wallet/usePrivyWalletDetail";
 
 const nanoid = customAlphabet("1234567890", 9);
 const ChallengeDepositForm = ({
@@ -23,6 +25,7 @@ const ChallengeDepositForm = ({
     const { privyClient } = usePrivyClient();
     const [bal, setBal] = useState("");
     const [loader, setLoader] = useState(false);
+    const { walletDetail } = usePrivyWalletDetail();
     useEffect(() => {
         fetchBalance();
     }, []);
@@ -35,7 +38,13 @@ const ChallengeDepositForm = ({
         const address = getFromLocalStorage("address");
         getUsdPrice()
             .then(async () => {
-                const balance = await getBalance(address);
+                const chains = [scrollSepolia, polygonZkEvmTestnet];
+
+                const chnId = walletDetail.chainId.split(":")[1];
+                const selChain = chains.filter(
+                    (val) => String(val.id) === String(chnId),
+                )[0];
+                const balance = await getBalance(address, selChain.rpcUrls.default.http);
                 const formattedNumber = getTokenFormattedNumber(
                     hexToNumber(balance.result),
                     18,
@@ -51,6 +60,13 @@ const ChallengeDepositForm = ({
         const _date = dayjs().add(_days, "day").unix();
         return _date;
     };
+
+    useEffect(() => {
+        if (walletDetail) {
+            fetchBalance();
+        }
+    }, [walletDetail]);
+
     const handleCreateChallenge = async () => {
         setLoader(true);
         if (challengeForm) {
